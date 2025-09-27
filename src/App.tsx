@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { useProfile } from './hooks/useProfile';
 import AuthForm from './components/auth/AuthForm';
@@ -8,7 +8,7 @@ import Dashboard from './components/home/Dashboard';
 function AppContent() {
   const { user, loading: authLoading } = useAuth();
   const { profile, loading: profileLoading } = useProfile();
-  
+  const [showLanding, setShowLanding] = useState(true);
 
   if (authLoading || profileLoading) {
     return (
@@ -21,13 +21,8 @@ function AppContent() {
     );
   }
 
-  // Show landing page if user is not authenticated and hasn't clicked "Get Started"
-  if (!user && showLanding) {
-    return <LandingPage onGetStarted={() => setShowLanding(false)} />;
-  }
-
   if (!user) {
-    return <AuthForm onBack={() => setShowLanding(true)} />;
+    return <AuthForm />;
   }
 
   if (!profile || !profile.full_name) {
