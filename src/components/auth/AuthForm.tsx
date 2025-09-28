@@ -15,6 +15,7 @@ export default function AuthForm({ onBack }: AuthFormProps) {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [resetMessage, setResetMessage] = useState('');
   
   const { signIn, signUp } = useAuth();
 
@@ -45,6 +46,26 @@ export default function AuthForm({ onBack }: AuthFormProps) {
     }
   };
 
+  const handlePasswordReset = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+    setResetMessage('');
+
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${window.location.origin}/reset-password`,
+      });
+
+      if (error) throw error;
+
+      setResetMessage('Password reset email sent! Check your inbox for further instructions.');
+    } catch (err: any) {
+      setError(err.message || 'An error occurred while sending the reset email.');
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <div className="min-h-screen bg-gradient-to-br from-soft-ivory to-warm-blush flex items-center justify-center p-4">
       <div className="max-w-md w-full bg-white rounded-2xl shadow-xl p-8">
@@ -54,7 +75,7 @@ export default function AuthForm({ onBack }: AuthFormProps) {
           </div>
           <h1 className="text-2xl font-bold text-gray-900 mb-2">The Mindful Money App</h1>
           <p className="text-gray-600">
-            {isSignUp ? 'Create your account' : 'Welcome back'}
+            {showForgotPassword ? 'Reset your password' : isSignUp ? 'Create your account' : 'Welcome back'}
           </p>
           {onBack && (
             <button
@@ -66,7 +87,7 @@ export default function AuthForm({ onBack }: AuthFormProps) {
           )}
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={showForgotPassword ? handlePasswordReset : handleSubmit} className="space-y-6">
           <DatabaseStatus />
           
           <div>
@@ -86,7 +107,8 @@ export default function AuthForm({ onBack }: AuthFormProps) {
             </div>
           </div>
 
-          <div>
+          {!showForgotPassword && (
+            <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Password
             </label>
@@ -103,6 +125,7 @@ export default function AuthForm({ onBack }: AuthFormProps) {
               />
             </div>
           </div>
+          )}
 
           {error && (
             <div className="bg-red-50 border border-red-200 rounded-lg p-3">
@@ -110,12 +133,17 @@ export default function AuthForm({ onBack }: AuthFormProps) {
             </div>
           )}
 
+          {resetMessage && (
+            <div className="bg-green-50 border border-green-200 rounded-lg p-3">
+              <p className="text-green-600 text-sm">{resetMessage}</p>
+            </div>
+          )}
           <button
             type="submit"
             disabled={loading}
             className="w-full bg-soft-clay text-white py-3 px-4 rounded-lg font-medium hover:bg-muted-taupe focus:ring-2 focus:ring-soft-clay focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
-            {loading ? 'Loading...' : isSignUp ? 'Create Account' : 'Sign In'}
+            {loading ? 'Loading...' : showForgotPassword ? 'Send Reset Email' : isSignUp ? 'Create Account' : 'Sign In'}
           </button>
         </form>
 
@@ -130,14 +158,30 @@ export default function AuthForm({ onBack }: AuthFormProps) {
           </div>
         )}
 
+        {showForgotPassword && (
+          <div className="mt-4 text-center">
+            <button
+              onClick={() => {
+                setShowForgotPassword(false);
+                setError('');
+                setResetMessage('');
+              }}
+              className="text-soft-clay hover:text-muted-taupe text-sm underline"
+            >
+              ← Back to sign in
+            </button>
+          </div>
+        )}
         <div className="mt-6 text-center">
           <button
-            onClick={() => setIsSignUp(!isSignUp)}
-            onClick={() => setShowForgotPassword(true)}
-            className="text-soft-clay hover:text-muted-taupe font-medium"
-          >
-            {isSignUp ? 'Already have an account? Sign in' : "Don't have an account? Sign up"}
-          </button>
+          {!showForgotPassword && (
+            <button
+              onClick={() => setIsSignUp(!isSignUp)}
+              className="text-soft-clay hover:text-muted-taupe font-medium"
+            >
+              {isSignUp ? 'Already have an account? Sign in' : "Don't have an account? Sign up"}
+            </button>
+          )}
         </div>
       </div>
     </div>
