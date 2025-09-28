@@ -1,0 +1,19 @@
+{
+  "name": "Money Mindset - Daily Financial Wellness",
+  "short_name": "Money Mindset",
+  "description": "Transform your relationship with money through daily intentions and reflections",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f9fafb",
+  "theme_color": "#059669",
+  "orientation": "portrait-primary",
+  "categories": ["finance", "lifestyle", "productivity"],
+  "screenshots": [
+    {
+      "src": "/screenshot-mobile.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow"
+    }
+  ]
+}
