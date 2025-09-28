@@ -173,7 +173,6 @@ export default function AuthForm({ onBack }: AuthFormProps) {
           </div>
         )}
         <div className="mt-6 text-center">
-          <button
           {!showForgotPassword && (
             <button
               onClick={() => setIsSignUp(!isSignUp)}
