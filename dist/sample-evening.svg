@@ -1,0 +1,89 @@
+<svg viewBox="0 0 375 812" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="375" height="812" fill="#F5F2ED"/>
+  
+  <!-- Header -->
+  <rect x="0" y="0" width="375" height="88" fill="white"/>
+  <rect x="0" y="87" width="375" height="1" fill="#E5E7EB"/>
+  
+  <!-- Logo and title -->
+  <circle cx="32" cy="44" r="16" fill="#A3A69C" opacity="0.2"/>
+  <path d="M24 36h16v16H24z" fill="#7F8C78"/>
+  <text x="56" y="40" font-family="Inter, sans-serif" font-size="16" font-weight="600" fill="#111827">The Mindful Money App</text>
+  <text x="56" y="56" font-family="Inter, sans-serif" font-size="14" fill="#6B7280">Welcome back, Sarah</text>
+  
+  <!-- Evening Reflection Header -->
+  <rect x="16" y="104" width="343" height="60" rx="12" fill="white"/>
+  <circle cx="40" cy="124" r="12" fill="#E6DFF4"/>
+  <path d="M32 118c0 4 2 8 8 8s8-4 8-8" stroke="#A89C90" stroke-width="2" fill="none"/>
+  <text x="64" y="122" font-family="Inter, sans-serif" font-size="18" font-weight="700" fill="#111827">Evening Reflection</text>
+  <text x="64" y="140" font-family="Inter, sans-serif" font-size="14" fill="#6B7280">Reflect on your progress and growth</text>
+  
+  <!-- Prompt Section -->
+  <rect x="16" y="180" width="343" height="140" rx="12" fill="#E6DFF4" opacity="0.5" stroke="#E6DFF4"/>
+  <text x="32" y="204" font-family="Inter, sans-serif" font-size="16" font-weight="500" fill="#111827">
+    <tspan x="32" dy="0">Earlier today, you set an intention to focus on:</tspan>
+    <tspan x="32" dy="20">"Track every purchase I make." How did that go</tspan>
+    <tspan x="32" dy="20">for you?</tspan>
+  </text>
+  <text x="32" y="264" font-family="Inter, sans-serif" font-size="14" fill="#A89C90">
+    <tspan x="32" dy="0">• What moments today made you feel proud of your progress?</tspan>
+    <tspan x="32" dy="16">• Was there anything that made it challenging to stick to your intention?</tspan>
+    <tspan x="32" dy="16">• What's one thing you learned about yourself today?</tspan>
+  </text>
+  
+  <!-- Reflection Text Area -->
+  <text x="32" y="348" font-family="Inter, sans-serif" font-size="16" font-weight="600" fill="#374151">
+    Share whatever's on your mind - there's no right or wrong answer:
+  </text>
+  
+  <rect x="16" y="364" width="343" height="120" rx="8" fill="white" stroke="#C7BFB4"/>
+  <text x="24" y="384" font-family="Inter, sans-serif" font-size="14" fill="#111827">
+    <tspan x="24" dy="0">I actually did pretty well! I wrote down every coffee,</tspan>
+    <tspan x="24" dy="16">lunch, and even the parking meter. It was eye-opening</tspan>
+    <tspan x="24" dy="16">to see how the small stuff adds up. I spent $23 on</tspan>
+    <tspan x="24" dy="16">things I didn't even think about. Tomorrow I want to</tspan>
+    <tspan x="24" dy="16">be more intentional about those little purchases.</tspan>
+  </text>
+  
+  <!-- Rating Section -->
+  <text x="32" y="516" font-family="Inter, sans-serif" font-size="16" font-weight="600" fill="#374151">
+    How are you feeling about today? (1 = rough day, 5 = amazing day)
+  </text>
+  
+  <!-- Star Rating -->
+  <g transform="translate(187.5, 540)">
+    <!-- Star 1 - filled -->
+    <path d="M-40 0l4 8h8l-6 6 2 8-8-4-8 4 2-8-6-6h8z" fill="#FACC15"/>
+    <!-- Star 2 - filled -->
+    <path d="M-20 0l4 8h8l-6 6 2 8-8-4-8 4 2-8-6-6h8z" fill="#FACC15"/>
+    <!-- Star 3 - filled -->
+    <path d="M0 0l4 8h8l-6 6 2 8-8-4-8 4 2-8-6-6h8z" fill="#FACC15"/>
+    <!-- Star 4 - filled -->
+    <path d="M20 0l4 8h8l-6 6 2 8-8-4-8 4 2-8-6-6h8z" fill="#FACC15"/>
+    <!-- Star 5 - empty -->
+    <path d="M40 0l4 8h8l-6 6 2 8-8-4-8 4 2-8-6-6h8z" fill="#D1D5DB"/>
+  </g>
+  
+  <text x="32" y="580" font-family="Inter, sans-serif" font-size="12" fill="#6B7280">Tough day</text>
+  <text x="343" y="580" font-family="Inter, sans-serif" font-size="12" fill="#6B7280" text-anchor="end">Amazing day</text>
+  
+  <!-- Submit Button -->
+  <rect x="16" y="596" width="343" height="44" rx="8" fill="#A89C90"/>
+  <text x="187.5" y="622" font-family="Inter, sans-serif" font-size="16" font-weight="600" fill="white" text-anchor="middle">Share My Reflection</text>
+  
+  <!-- Progress Cards -->
+  <text x="32" y="672" font-family="Inter, sans-serif" font-size="16" font-weight="600" fill="#111827">Today's Progress</text>
+  
+  <rect x="16" y="684" width="107" height="80" rx="8" fill="#A3A69C" opacity="0.1" stroke="#A3A69C" opacity="0.2"/>
+  <text x="69.5" y="708" font-family="Inter, sans-serif" font-size="24" font-weight="700" fill="#7F8C78" text-anchor="middle">3</text>
+  <text x="69.5" y="728" font-family="Inter, sans-serif" font-size="12" font-weight="500" fill="#7F8C78" text-anchor="middle">Stars Earned</text>
+  
+  <rect x="134" y="684" width="107" height="80" rx="8" fill="#D6DBE2" opacity="0.3" stroke="#D6DBE2" opacity="0.5"/>
+  <text x="187.5" y="712" font-family="Inter, sans-serif" font-size="20" fill="#10B981" text-anchor="middle">✅</text>
+  <text x="187.5" y="732" font-family="Inter, sans-serif" font-size="12" font-weight="500" fill="#A89C90" text-anchor="middle">Intention Set</text>
+  
+  <rect x="252" y="684" width="107" height="80" rx="8" fill="#E6DFF4" opacity="0.5" stroke="#E6DFF4"/>
+  <text x="305.5" y="712" font-family="Inter, sans-serif" font-size="20" fill="#7C3AED" text-anchor="middle">⭕</text>
+  <text x="305.5" y="732" font-family="Inter, sans-serif" font-size="12" font-weight="500" fill="#A89C90" text-anchor="middle">Evening Complete</text>
+</svg>
