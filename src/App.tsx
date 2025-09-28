@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { useProfile } from './hooks/useProfile';
 import AuthForm from './components/auth/AuthForm';
+import PasswordReset from './components/auth/PasswordReset';
 import OnboardingFlow from './components/onboarding/OnboardingFlow';
 import Dashboard from './components/home/Dashboard';
 
@@ -9,6 +10,14 @@ function AppContent() {
   const { user, loading: authLoading } = useAuth();
   const { profile, loading: profileLoading } = useProfile();
   const [showLanding, setShowLanding] = useState(true);
+
+  // Check if we're on the password reset page
+  const isPasswordReset = window.location.pathname === '/reset-password' || 
+                          window.location.hash.includes('type=recovery');
+
+  if (isPasswordReset) {
+    return <PasswordReset />;
+  }
 
   if (authLoading || profileLoading) {
     return (
