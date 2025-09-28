@@ -92,14 +92,14 @@ export function useNotifications() {
 
     // Schedule morning notification
     scheduleLocalNotification(
-      'Morning Boost',
+      'The Mindful Money App',
       'Start your day with intention and inspiration! 🌅',
       morningTime
     );
 
     // Schedule evening notification
     scheduleLocalNotification(
-      'Evening Reflection',
+      'The Mindful Money App',
       'Time to reflect on your progress today! 🌙',
       eveningTime
     );
