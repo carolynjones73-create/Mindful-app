@@ -13,7 +13,8 @@ function AppContent() {
 
   // Check if we're on the password reset page
   const isPasswordReset = window.location.pathname === '/reset-password' || 
-                          window.location.hash.includes('type=recovery');
+                          window.location.hash.includes('type=recovery') ||
+                          window.location.search.includes('type=recovery');
 
   if (isPasswordReset) {
     return <PasswordReset />;
