@@ -100,6 +100,7 @@ export default function NotificationSetup() {
           <button
             onClick={showTestNotification}
             className="flex items-center gap-3 px-8 py-5 bg-gradient-to-r from-muted-taupe to-soft-clay text-white text-lg font-semibold rounded-2xl hover:from-soft-clay hover:to-muted-taupe transition-all duration-200 shadow-lg hover:shadow-xl tracking-wide"
+            title="Click to test if notifications are working"
           >
             <TestTube className="w-5 h-5" />
             Test Notification

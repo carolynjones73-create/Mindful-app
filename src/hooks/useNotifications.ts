@@ -133,10 +133,17 @@ export function useNotifications() {
   };
 
   const showTestNotification = () => {
-    if (permission === 'granted') {
+    if (permission === 'granted' && 'Notification' in window) {
+      console.log('Showing test notification...');
       new Notification('Money Mindset', {
         body: 'Test notification - your notifications are working! 🎉',
+        icon: '/favicon.ico',
+        tag: 'test-notification',
+        requireInteraction: false
       });
+    } else {
+      console.log('Cannot show notification. Permission:', permission, 'Notification support:', 'Notification' in window);
+      alert('Notifications are not available. Permission: ' + permission);
     }
   };
 
