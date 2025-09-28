@@ -1,0 +1,179 @@
+<svg width="375" height="812" viewBox="0 0 375 812" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradientTimeline" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#F9FAFB;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#F3F4F6;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadowTimeline" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#00000020"/>
+    </filter>
+  </defs>
+  
+  <!-- Phone Background -->
+  <rect width="375" height="812" fill="url(#bgGradientTimeline)"/>
+  
+  <!-- Header -->
+  <rect x="0" y="0" width="375" height="100" fill="white" opacity="0.95"/>
+  <circle cx="40" cy="50" r="16" fill="#A3A69C" opacity="0.3"/>
+  <rect x="70" y="35" width="100" height="8" rx="4" fill="#374151"/>
+  <rect x="70" y="50" width="80" height="6" rx="3" fill="#6B7280"/>
+  
+  <!-- Calendar Header -->
+  <rect x="20" y="120" width="335" height="60" rx="16" fill="white" filter="url(#shadowTimeline)"/>
+  <rect x="40" y="140" width="80" height="10" rx="5" fill="#374151"/>
+  <rect x="280" y="140" width="60" height="8" rx="4" fill="#6B7280"/>
+  
+  <!-- Calendar Grid -->
+  <rect x="20" y="200" width="335" height="280" rx="16" fill="white" filter="url(#shadowTimeline)"/>
+  
+  <!-- Days of week header -->
+  <rect x="35" y="220" width="25" height="6" rx="3" fill="#9CA3AF"/>
+  <rect x="75" y="220" width="25" height="6" rx="3" fill="#9CA3AF"/>
+  <rect x="115" y="220" width="25" height="6" rx="3" fill="#9CA3AF"/>
+  <rect x="155" y="220" width="25" height="6" rx="3" fill="#9CA3AF"/>
+  <rect x="195" y="220" width="25" height="6" rx="3" fill="#9CA3AF"/>
+  <rect x="235" y="220" width="25" height="6" rx="3" fill="#9CA3AF"/>
+  <rect x="275" y="220" width="25" height="6" rx="3" fill="#9CA3AF"/>
+  
+  <!-- Calendar days -->
+  <!-- Week 1 -->
+  <rect x="35" y="240" width="25" height="25" rx="4" fill="#F3F4F6"/>
+  <text x="47" y="255" text-anchor="middle" font-family="Inter" font-size="10" fill="#9CA3AF">1</text>
+  
+  <rect x="75" y="240" width="25" height="25" rx="4" fill="#DBEAFE"/>
+  <text x="87" y="255" text-anchor="middle" font-family="Inter" font-size="10" fill="#1D4ED8">2</text>
+  <circle cx="95" cy="245" r="2" fill="#FBBF24"/>
+  <circle cx="95" cy="260" r="2" fill="#8B5CF6"/>
+  
+  <rect x="115" y="240" width="25" height="25" rx="4" fill="#DBEAFE"/>
+  <text x="127" y="255" text-anchor="middle" font-family="Inter" font-size="10" fill="#1D4ED8">3</text>
+  <circle cx="135" cy="245" r="2" fill="#FBBF24"/>
+  <circle cx="135" cy="260" r="2" fill="#8B5CF6"/>
+  
+  <rect x="155" y="240" width="25" height="25" rx="4" fill="#F3F4F6"/>
+  <text x="167" y="255" text-anchor="middle" font-family="Inter" font-size="10" fill="#9CA3AF">4</text>
+  
+  <rect x="195" y="240" width="25" height="25" rx="4" fill="#DBEAFE"/>
+  <text x="207" y="255" text-anchor="middle" font-family="Inter" font-size="10" fill="#1D4ED8">5</text>
+  <circle cx="215" cy="245" r="2" fill="#FBBF24"/>
+  
+  <rect x="235" y="240" width="25" height="25" rx="4" fill="#DBEAFE"/>
+  <text x="247" y="255" text-anchor="middle" font-family="Inter" font-size="10" fill="#1D4ED8">6</text>
+  <circle cx="255" cy="245" r="2" fill="#FBBF24"/>
+  <circle cx="255" cy="260" r="2" fill="#8B5CF6"/>
+  
+  <rect x="275" y="240" width="25" height="25" rx="4" fill="#DCFCE7"/>
+  <text x="287" y="255" text-anchor="middle" font-family="Inter" font-size="10" fill="#15803D">7</text>
+  <circle cx="295" cy="245" r="2" fill="#FBBF24"/>
+  <circle cx="295" cy="260" r="2" fill="#8B5CF6"/>
+  <rect x="280" y="248" width="15" height="8" rx="4" fill="#FBBF24"/>
+  <text x="287" y="253" text-anchor="middle" font-family="Inter" font-size="6" font-weight="bold" fill="#92400E">3⭐</text>
+  
+  <!-- Week 2 -->
+  <rect x="35" y="280" width="25" height="25" rx="4" fill="#DBEAFE"/>
+  <text x="47" y="295" text-anchor="middle" font-family="Inter" font-size="10" fill="#1D4ED8">8</text>
+  <circle cx="55" cy="285" r="2" fill="#FBBF24"/>
+  <circle cx="55" cy="300" r="2" fill="#8B5CF6"/>
+  
+  <rect x="75" y="280" width="25" height="25" rx="4" fill="#F3F4F6"/>
+  <text x="87" y="295" text-anchor="middle" font-family="Inter" font-size="10" fill="#9CA3AF">9</text>
+  
+  <rect x="115" y="280" width="25" height="25" rx="4" fill="#DBEAFE"/>
+  <text x="127" y="295" text-anchor="middle" font-family="Inter" font-size="10" fill="#1D4ED8">10</text>
+  <circle cx="135" cy="285" r="2" fill="#FBBF24"/>
+  
+  <rect x="155" y="280" width="25" height="25" rx="4" fill="#DBEAFE"/>
+  <text x="167" y="295" text-anchor="middle" font-family="Inter" font-size="10" fill="#1D4ED8">11</text>
+  <circle cx="175" cy="285" r="2" fill="#FBBF24"/>
+  <circle cx="175" cy="300" r="2" fill="#8B5CF6"/>
+  
+  <rect x="195" y="280" width="25" height="25" rx="4" fill="#DBEAFE"/>
+  <text x="207" y="295" text-anchor="middle" font-family="Inter" font-size="10" fill="#1D4ED8">12</text>
+  <circle cx="215" cy="285" r="2" fill="#FBBF24"/>
+  <circle cx="215" cy="300" r="2" fill="#8B5CF6"/>
+  
+  <rect x="235" y="280" width="25" height="25" rx="4" fill="#DBEAFE"/>
+  <text x="247" y="295" text-anchor="middle" font-family="Inter" font-size="10" fill="#1D4ED8">13</text>
+  <circle cx="255" cy="285" r="2" fill="#FBBF24"/>
+  <circle cx="255" cy="300" r="2" fill="#8B5CF6"/>
+  
+  <rect x="275" y="280" width="25" height="25" rx="4" fill="#DBEAFE"/>
+  <text x="287" y="295" text-anchor="middle" font-family="Inter" font-size="10" fill="#1D4ED8">14</text>
+  <circle cx="295" cy="285" r="2" fill="#FBBF24"/>
+  <circle cx="295" cy="300" r="2" fill="#8B5CF6"/>
+  
+  <!-- More weeks... -->
+  <rect x="35" y="320" width="25" height="25" rx="4" fill="#DBEAFE"/>
+  <rect x="75" y="320" width="25" height="25" rx="4" fill="#DBEAFE"/>
+  <rect x="115" y="320" width="25" height="25" rx="4" fill="#F3F4F6"/>
+  <rect x="155" y="320" width="25" height="25" rx="4" fill="#DBEAFE"/>
+  <rect x="195" y="320" width="25" height="25" rx="4" fill="#DBEAFE"/>
+  <rect x="235" y="320" width="25" height="25" rx="4" fill="#DBEAFE"/>
+  <rect x="275" y="320" width="25" height="25" rx="4" fill="#DBEAFE"/>
+  
+  <rect x="35" y="360" width="25" height="25" rx="4" fill="#DBEAFE"/>
+  <rect x="75" y="360" width="25" height="25" rx="4" fill="#DBEAFE"/>
+  <rect x="115" y="360" width="25" height="25" rx="4" fill="#DBEAFE"/>
+  <rect x="155" y="360" width="25" height="25" rx="4" fill="#DBEAFE"/>
+  <rect x="195" y="360" width="25" height="25" rx="4" fill="#F3F4F6"/>
+  <rect x="235" y="360" width="25" height="25" rx="4" fill="#F3F4F6"/>
+  <rect x="275" y="360" width="25" height="25" rx="4" fill="#F3F4F6"/>
+  
+  <rect x="35" y="400" width="25" height="25" rx="4" fill="#F3F4F6"/>
+  <rect x="75" y="400" width="25" height="25" rx="4" fill="#F3F4F6"/>
+  <rect x="115" y="400" width="25" height="25" rx="4" fill="#F3F4F6"/>
+  <rect x="155" y="400" width="25" height="25" rx="4" fill="#F3F4F6"/>
+  <rect x="195" y="400" width="25" height="25" rx="4" fill="#F3F4F6"/>
+  <rect x="235" y="400" width="25" height="25" rx="4" fill="#F3F4F6"/>
+  <rect x="275" y="400" width="25" height="25" rx="4" fill="#F3F4F6"/>
+  
+  <!-- Entry Detail Panel -->
+  <rect x="20" y="500" width="335" height="200" rx="16" fill="white" filter="url(#shadowTimeline)"/>
+  <rect x="35" y="520" width="120" height="10" rx="5" fill="#374151"/>
+  <rect x="280" y="520" width="60" height="8" rx="4" fill="#6B7280"/>
+  
+  <!-- Stars Earned -->
+  <rect x="35" y="545" width="305" height="30" rx="8" fill="#FEF3C7"/>
+  <circle cx="55" cy="560" r="8" fill="#FBBF24"/>
+  <polygon points="55,555 56.5,558 60,558 57.5,560.5 58.5,564 55,562 51.5,564 52.5,560.5 50,558 53.5,558" fill="white"/>
+  <rect x="75" y="555" width="80" height="8" rx="4" fill="#92400E"/>
+  <rect x="75" y="565" width="60" height="6" rx="3" fill="#92400E" opacity="0.7"/>
+  
+  <!-- Morning Intention -->
+  <rect x="35" y="585" width="305" height="50" rx="8" fill="#F0FDF4"/>
+  <circle cx="55" cy="600" r="6" fill="#22C55E"/>
+  <rect x="70" y="595" width="100" height="8" rx="4" fill="#15803D"/>
+  <rect x="180" y="595" width="40" height="6" rx="3" fill="#16A34A"/>
+  <rect x="70" y="608" width="250" height="6" rx="3" fill="#15803D" opacity="0.7"/>
+  <rect x="70" y="618" width="200" height="6" rx="3" fill="#15803D" opacity="0.7"/>
+  
+  <!-- Evening Reflection -->
+  <rect x="35" y="645" width="305" height="50" rx="8" fill="#F3E8FF"/>
+  <circle cx="55" cy="660" r="6" fill="#8B5CF6"/>
+  <rect x="70" y="655" width="120" height="8" rx="4" fill="#7C3AED"/>
+  <rect x="200" y="655" width="40" height="6" rx="3" fill="#8B5CF6"/>
+  <rect x="70" y="668" width="250" height="6" rx="3" fill="#7C3AED" opacity="0.7"/>
+  <rect x="70" y="678" width="180" height="6" rx="3" fill="#7C3AED" opacity="0.7"/>
+  
+  <!-- Star Rating -->
+  <g transform="translate(250, 670)">
+    <circle cx="0" cy="0" r="6" fill="#FBBF24"/>
+    <polygon points="0,-4 1.2,-1.2 4,0 1.2,1.2 0,4 -1.2,1.2 -4,0 -1.2,-1.2" fill="white"/>
+  </g>
+  <g transform="translate(265, 670)">
+    <circle cx="0" cy="0" r="6" fill="#FBBF24"/>
+    <polygon points="0,-4 1.2,-1.2 4,0 1.2,1.2 0,4 -1.2,1.2 -4,0 -1.2,-1.2" fill="white"/>
+  </g>
+  <g transform="translate(280, 670)">
+    <circle cx="0" cy="0" r="6" fill="#FBBF24"/>
+    <polygon points="0,-4 1.2,-1.2 4,0 1.2,1.2 0,4 -1.2,1.2 -4,0 -1.2,-1.2" fill="white"/>
+  </g>
+  <g transform="translate(295, 670)">
+    <circle cx="0" cy="0" r="6" fill="#FBBF24"/>
+    <polygon points="0,-4 1.2,-1.2 4,0 1.2,1.2 0,4 -1.2,1.2 -4,0 -1.2,-1.2" fill="white"/>
+  </g>
+  <g transform="translate(310, 670)">
+    <circle cx="0" cy="0" r="6" fill="#D1D5DB"/>
+    <polygon points="0,-4 1.2,-1.2 4,0 1.2,1.2 0,4 -1.2,1.2 -4,0 -1.2,-1.2" fill="white"/>
+  </g>
+</svg>
