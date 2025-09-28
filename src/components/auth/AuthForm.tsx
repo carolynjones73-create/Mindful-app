@@ -54,7 +54,7 @@ export default function AuthForm({ onBack }: AuthFormProps) {
 
     try {
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: `${window.location.origin}/#type=recovery`,
+        redirectTo: `${window.location.origin}`,
       });
 
       if (error) throw error;
