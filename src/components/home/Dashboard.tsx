@@ -425,7 +425,16 @@ export default function Dashboard() {
       <header className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">The Mindful Money App</h1>
+            <div className="flex items-center gap-3">
+              <img 
+                src="/logo.svg" 
+                alt="The Mindful Money App" 
+                className="w-12 h-12 rounded-lg shadow-sm"
+              />
+              <div>
+                <h1 className="text-xl font-bold text-gray-900">The Mindful Money App</h1>
+              </div>
+            </div>
             <p className="text-gray-600">Welcome back, {profile?.full_name || user?.email}</p>
           </div>
           <div className="flex items-center gap-2">
