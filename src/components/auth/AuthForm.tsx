@@ -118,6 +118,17 @@ export default function AuthForm({ onBack }: AuthFormProps) {
           </button>
         </form>
 
+        {!isSignUp && !showForgotPassword && (
+          <div className="mt-4 text-center">
+            <button
+              onClick={() => setShowForgotPassword(true)}
+              className="text-soft-clay hover:text-muted-taupe text-sm underline"
+            >
+              Forgot your password?
+            </button>
+          </div>
+        )}
+
         <div className="mt-6 text-center">
           <button
             onClick={() => setIsSignUp(!isSignUp)}
