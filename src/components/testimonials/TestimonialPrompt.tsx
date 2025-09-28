@@ -34,7 +34,7 @@ export default function TestimonialPrompt({ milestone, onClose, onSubmit }: Test
       case 90:
         return {
           title: "🌟 Phenomenal! 90 days of transformation!",
-          subtitle: "You're a true Money Mindset champion. What would you tell others?",
+          subtitle: "You're a true Mindful Money champion. What would you tell others?",
           prompt: "What advice would you give to someone just starting their money mindset journey?"
         };
     }
