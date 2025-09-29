@@ -5,11 +5,11 @@ import { Tip, QuickAction } from '../../types';
 interface DailyTipProps {
   tip: Tip;
   quickActions: QuickAction[];
-  onActionComplete: (actionId: string) => void;
-  completedActions: string[];
+  onActionCommit: (actionId: string) => void;
+  committedActionId?: string;
 }
 
-export default function DailyTip({ tip, quickActions, onActionComplete, completedActions }: DailyTipProps) {
+export default function DailyTip({ tip, quickActions, onActionCommit, committedActionId }: DailyTipProps) {
   const getThemeColor = (theme: string) => {
     switch (theme) {
       case 'money': return 'bg-sage-green/20 text-palm-green border-sage-green/30';
@@ -38,29 +38,58 @@ export default function DailyTip({ tip, quickActions, onActionComplete, complete
 
       {quickActions.length > 0 && (
         <div className="space-y-4">
-          <h4 className="text-lg font-semibold text-gray-700">Quick Actions:</h4>
+          <h4 className="text-lg font-semibold text-gray-700">Choose ONE action to focus on today:</h4>
+          <p className="text-sm text-gray-600 mb-4">
+            Select the action you'll commit to doing today. We'll check in with you this evening!
+          </p>
           <div className="space-y-3">
             {quickActions.map((action) => {
-              const isCompleted = completedActions.includes(action.id);
+              const isCommitted = committedActionId === action.id;
               return (
                 <button
                   key={action.id}
-                  onClick={() => !isCompleted && onActionComplete(action.id)}
-                  disabled={isCompleted}
+                  onClick={() => !committedActionId && onActionCommit(action.id)}
+                  disabled={!!committedActionId}
                   className={`w-full text-left px-4 py-3 rounded-lg border transition-all duration-200 ${
-                    isCompleted
+                    isCommitted
                       ? 'bg-sage-green/10 border-sage-green/30 text-palm-green'
-                      : 'bg-soft-ivory border-greige text-gray-700 hover:bg-warm-beige/30'
+                      : committedActionId
+                      ? 'bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed'
+                      : 'bg-soft-ivory border-greige text-gray-700 hover:bg-warm-beige/30 hover:border-soft-clay/50'
                   }`}
                 >
                   <div className="flex items-center gap-3">
-                    <CheckCircle className={`w-5 h-5 ${isCompleted ? 'text-palm-green' : 'text-gray-400'}`} />
-                    <span className={`${isCompleted ? 'line-through' : ''}`}>{action.action_text}</span>
+                    <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                      isCommitted 
+                        ? 'bg-palm-green border-palm-green' 
+                        : 'border-gray-400'
+                    }`}>
+                      {isCommitted && <CheckCircle className="w-3 h-3 text-white" />}
+                    </div>
+                    <span className={`${isCommitted ? 'font-medium' : ''}`}>
+                      {action.action_text}
+                    </span>
+                    {isCommitted && (
+                      <span className="ml-auto text-sm font-medium text-palm-green">
+                        ✓ Committed
+                      </span>
+                    )}
                   </div>
                 </button>
               );
             })}
           </div>
+          
+          {committedActionId && (
+            <div className="bg-sage-green/10 border border-sage-green/30 rounded-lg p-4 mt-4">
+              <p className="text-sm font-medium text-palm-green mb-2">
+                🎯 Great choice! You've committed to this action.
+              </p>
+              <p className="text-sm text-gray-700">
+                We'll check in with you this evening to see how it went. Remember, small consistent actions lead to big changes!
+              </p>
+            </div>
+          )}
         </div>
       )}
     </div>

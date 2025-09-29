@@ -23,7 +23,7 @@ export default function Dashboard() {
   const { badges, userBadges, loading: badgesLoading, checkAndAwardBadges, refetch: refetchBadges } = useBadges();
   const { shouldShowPrompt, dismissPrompt, handleTestimonialSubmitted } = useTestimonials();
   const [dailyEntry, setDailyEntry] = useState<DailyEntry | null>(null);
-  const [completedActions, setCompletedActions] = useState<string[]>([]);
+  const [actionCompleted, setActionCompleted] = useState<boolean | undefined>(undefined);
   const [userStats, setUserStats] = useState<{
     totalStars: number;
     totalCompletions: number;
@@ -84,9 +84,7 @@ export default function Dashboard() {
 
       if (data) {
         setDailyEntry(data);
-        if (data.quick_action_id) {
-          setCompletedActions([data.quick_action_id]);
-        }
+        setActionCompleted(data.action_completed);
       }
     } catch (error) {
       console.error('Error fetching daily entry:', error);
@@ -136,7 +134,7 @@ export default function Dashboard() {
     }
   };
 
-  const handleActionComplete = async (actionId: string) => {
+  const handleActionCommit = async (actionId: string) => {
     if (!user || !tip) return;
 
     try {
@@ -145,7 +143,6 @@ export default function Dashboard() {
         entry_date: today,
         tip_id: tip.id,
         quick_action_id: actionId,
-        stars_earned: 1
       };
 
       const { data, error } = await supabase
@@ -157,7 +154,6 @@ export default function Dashboard() {
       if (error) throw error;
 
       setDailyEntry(data);
-      setCompletedActions([actionId]);
       
       await fetchUserStats();
       
@@ -167,6 +163,39 @@ export default function Dashboard() {
       }
     } catch (error) {
       console.error('Error completing action:', error);
+    }
+  };
+
+  const handleActionCompletionUpdate = async (completed: boolean) => {
+    if (!user) return;
+
+    try {
+      const starsToAdd = completed ? 1 : 0;
+      const entryData = {
+        user_id: user.id,
+        entry_date: today,
+        action_completed: completed,
+        stars_earned: (dailyEntry?.stars_earned || 0) + starsToAdd
+      };
+
+      const { data, error } = await supabase
+        .from('daily_entries')
+        .upsert(entryData, { onConflict: 'user_id,entry_date' })
+        .select()
+        .single();
+
+      if (error) throw error;
+      setDailyEntry(data);
+      setActionCompleted(completed);
+      
+      await fetchUserStats();
+      
+      const earnedBadges = await checkAndAwardBadges();
+      if (earnedBadges.length > 0) {
+        setNewBadges(earnedBadges);
+      }
+    } catch (error) {
+      console.error('Error updating action completion:', error);
     }
   };
 
@@ -180,7 +209,7 @@ export default function Dashboard() {
         morning_intention: intention,
         morning_completed: true,
         morning_completed_at: new Date().toISOString(),
-        stars_earned: (dailyEntry?.stars_earned || 0) + 1
+        stars_earned: (dailyEntry?.stars_earned || 0) + 2
       };
 
       const { data, error } = await supabase
@@ -215,7 +244,7 @@ export default function Dashboard() {
         rating: rating,
         evening_completed: true,
         evening_completed_at: new Date().toISOString(),
-        stars_earned: (dailyEntry?.stars_earned || 0) + 2
+        stars_earned: (dailyEntry?.stars_earned || 0) + 1
       };
 
       const { data, error } = await supabase
@@ -255,7 +284,7 @@ export default function Dashboard() {
       if (error) throw error;
 
       setDailyEntry(null);
-      setCompletedActions([]);
+      setActionCompleted(undefined);
       await fetchUserStats();
       
       // Also refresh badges since stats changed
@@ -368,7 +397,7 @@ export default function Dashboard() {
       // Reset all local state
       setNewBadges([]);
       setDailyEntry(null);
-      setCompletedActions([]);
+      setActionCompleted(undefined);
       setUserStats({ totalStars: 0, totalCompletions: 0, currentStreak: 0 });
       console.log('Reset local state');
       
@@ -510,8 +539,8 @@ export default function Dashboard() {
                     <DailyTip
                       tip={tip}
                       quickActions={quickActions}
-                      onActionComplete={handleActionComplete}
-                      completedActions={completedActions}
+                     onActionCommit={handleActionCommit}
+                     committedActionId={dailyEntry?.quick_action_id}
                     />
                   )}
                 </div>
@@ -537,6 +566,13 @@ export default function Dashboard() {
                     userGoals={profile?.goals}
                     completedReflection={dailyEntry?.reflection_text}
                     completedRating={dailyEntry?.rating}
+                   committedAction={
+                     dailyEntry?.quick_action_id 
+                       ? quickActions.find(qa => qa.id === dailyEntry.quick_action_id)?.action_text
+                       : undefined
+                   }
+                   actionCompleted={actionCompleted}
+                   onActionCompletionUpdate={handleActionCompletionUpdate}
                   />
                 )}
               </div>

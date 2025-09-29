@@ -10,6 +10,9 @@ interface EveningReflectionProps {
   userGoals?: string[];
   completedReflection?: string;
   completedRating?: number;
+  committedAction?: string;
+  actionCompleted?: boolean;
+  onActionCompletionUpdate?: (completed: boolean) => void;
 }
 
 export default function EveningReflection({ 
@@ -20,6 +23,9 @@ export default function EveningReflection({
   userGoals,
   completedReflection,
   completedRating
+  committedAction,
+  actionCompleted,
+  onActionCompletionUpdate
 }: EveningReflectionProps) {
   const [reflection, setReflection] = useState('');
   const [rating, setRating] = useState(0);
@@ -118,6 +124,55 @@ export default function EveningReflection({
   return (
     <div className="bg-white rounded-lg border p-6">
       <form onSubmit={handleSubmit} className="space-y-6">
+        {/* Action Follow-up */}
+        {committedAction && onActionCompletionUpdate && (
+          <div className="bg-golden-cream/30 rounded-lg p-4 border border-golden-cream">
+            <h4 className="text-lg font-semibold text-gray-900 mb-3">
+              🎯 Action Check-in
+            </h4>
+            <p className="text-gray-700 mb-4">
+              This morning you committed to: <strong>"{committedAction}"</strong>
+            </p>
+            <div className="flex items-center gap-4">
+              <span className="text-gray-700 font-medium">Did you complete this action?</span>
+              <div className="flex gap-3">
+                <button
+                  type="button"
+                  onClick={() => onActionCompletionUpdate(true)}
+                  className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                    actionCompleted === true
+                      ? 'bg-green-100 text-green-800 border-2 border-green-300'
+                      : 'bg-white text-gray-700 border border-gray-300 hover:bg-green-50'
+                  }`}
+                >
+                  ✅ Yes, I did it!
+                </button>
+                <button
+                  type="button"
+                  onClick={() => onActionCompletionUpdate(false)}
+                  className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                    actionCompleted === false
+                      ? 'bg-orange-100 text-orange-800 border-2 border-orange-300'
+                      : 'bg-white text-gray-700 border border-gray-300 hover:bg-orange-50'
+                  }`}
+                >
+                  ❌ Not this time
+                </button>
+              </div>
+            </div>
+            {actionCompleted === true && (
+              <div className="mt-3 p-3 bg-green-50 rounded-lg border border-green-200">
+                <p className="text-green-800 font-medium">🎉 Awesome! You followed through on your commitment!</p>
+              </div>
+            )}
+            {actionCompleted === false && (
+              <div className="mt-3 p-3 bg-orange-50 rounded-lg border border-orange-200">
+                <p className="text-orange-800">That's okay! Every attempt is progress. What did you learn?</p>
+              </div>
+            )}
+          </div>
+        )}
+
         <div className="space-y-4">
           <div className="bg-opal/50 rounded-lg p-4 border border-opal">
             <p className="text-gray-900 font-medium mb-3">{prompts.mainPrompt}</p>
