@@ -1,0 +1,31 @@
+<svg width="400" height="320" viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg">
+  <!-- Card Background -->
+  <rect width="400" height="320" rx="20" fill="#F3E3C6" stroke="none"/>
+  
+  <!-- Header -->
+  <rect x="20" y="20" width="40" height="40" rx="8" fill="#A89C90"/>
+  <circle cx="40" cy="40" r="12" fill="none" stroke="#FFFFFF" stroke-width="2"/>
+  <circle cx="40" cy="40" r="8" fill="#FFFFFF"/>
+  <path d="M35 35 L40 40 L45 35" stroke="#A89C90" stroke-width="2" fill="none"/>
+  
+  <text x="75" y="35" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#2D3748">Morning Boost</text>
+  
+  <!-- Today's inspiration card -->
+  <rect x="20" y="80" width="360" height="100" rx="12" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="30" y="100" font-family="Arial, sans-serif" font-size="14" font-weight="600" fill="#4A5568">Today's inspiration:</text>
+  
+  <text x="30" y="125" font-family="Georgia, serif" font-size="13" font-style="italic" fill="#2D3748">"The real measure of your wealth is how much</text>
+  <text x="30" y="145" font-family="Georgia, serif" font-size="13" font-style="italic" fill="#2D3748">you'd be worth if you lost all your money."</text>
+  <text x="30" y="165" font-family="Arial, sans-serif" font-size="12" font-weight="600" fill="#4A5568">Warren Buffett</text>
+  
+  <!-- Your intention card -->
+  <rect x="20" y="195" width="360" height="80" rx="12" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="30" y="215" font-family="Arial, sans-serif" font-size="14" font-weight="600" fill="#4A5568">Your intention:</text>
+  
+  <text x="30" y="240" font-family="Georgia, serif" font-size="13" font-style="italic" fill="#2D3748">"I will make one conscious spending decision</text>
+  <text x="30" y="260" font-family="Georgia, serif" font-size="13" font-style="italic" fill="#2D3748">that aligns with my values today."</text>
+  
+  <!-- Footer -->
+  <text x="20" y="295" font-family="Arial, sans-serif" font-size="16" font-weight="600" fill="#A89C90">Morning (2 minutes)</text>
+  <text x="20" y="310" font-family="Arial, sans-serif" font-size="14" fill="#718096">Set your daily intention</text>
+</svg>
