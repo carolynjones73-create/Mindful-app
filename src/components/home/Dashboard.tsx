@@ -150,7 +150,7 @@ export default function Dashboard() {
 
       const { data, error } = await supabase
         .from('daily_entries')
-        .upsert(entryData)
+        .upsert(entryData, { onConflict: 'user_id,entry_date' })
         .select()
         .single();
 
@@ -185,7 +185,7 @@ export default function Dashboard() {
 
       const { data, error } = await supabase
         .from('daily_entries')
-        .upsert(entryData)
+        .upsert(entryData, { onConflict: 'user_id,entry_date' })
         .select()
         .single();
 
@@ -220,7 +220,7 @@ export default function Dashboard() {
 
       const { data, error } = await supabase
         .from('daily_entries')
-        .upsert(entryData)
+        .upsert(entryData, { onConflict: 'user_id,entry_date' })
         .select()
         .single();
 
