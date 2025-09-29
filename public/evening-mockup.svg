@@ -1,0 +1,73 @@
+<svg width="375" height="812" viewBox="0 0 375 812" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="375" height="812" fill="#F5F2ED"/>
+  
+  <!-- Main Content Card -->
+  <rect x="16" y="20" width="343" height="772" rx="12" fill="white" stroke="#E5E7EB"/>
+  
+  <!-- Evening Reflection Header -->
+  <rect x="32" y="36" width="48" height="48" rx="8" fill="#E6DFF4"/>
+  <!-- Moon Icon -->
+  <path d="M56 48c-6.627 0-12 5.373-12 12s5.373 12 12 12c1.5 0 2.93-.276 4.25-.78C57.5 68.84 56 65.64 56 62s1.5-6.84 4.25-9.22C58.93 48.276 57.5 48 56 48z" fill="#A89C90"/>
+  
+  <text x="96" y="56" font-family="Inter" font-size="20" font-weight="700" fill="#111827">Evening Reflection</text>
+  <text x="96" y="76" font-family="Inter" font-size="16" fill="#6B7280">Reflect on your progress and growth</text>
+  
+  <!-- Reflection Prompt Section -->
+  <rect x="32" y="108" width="311" height="140" rx="8" fill="#E6DFF480" stroke="#E6DFF4"/>
+  <text x="48" y="128" font-family="Inter" font-size="16" font-weight="500" fill="#111827">Earlier today, you set an intention to focus on:</text>
+  <text x="48" y="148" font-family="Inter" font-size="16" font-weight="500" fill="#111827">"Track every expense today." How did that go</text>
+  <text x="48" y="168" font-family="Inter" font-size="16" font-weight="500" fill="#111827">for you?</text>
+  
+  <text x="48" y="196" font-family="Inter" font-size="14" fill="#A89C90">• What moments today made you feel proud of your progress?</text>
+  <text x="48" y="212" font-family="Inter" font-size="14" fill="#A89C90">• Was there anything that made it challenging to stick to your intention?</text>
+  <text x="48" y="228" font-family="Inter" font-size="14" fill="#A89C90">• What's one thing you learned about yourself today?</text>
+  
+  <!-- Share Section -->
+  <text x="32" y="276" font-family="Inter" font-size="18" font-weight="600" fill="#374151">Share whatever's on your mind - there's no</text>
+  <text x="32" y="296" font-family="Inter" font-size="18" font-weight="600" fill="#374151">right or wrong answer:</text>
+  
+  <!-- Text Input Area -->
+  <rect x="32" y="316" width="311" height="120" rx="8" fill="white" stroke="#C7BFB4"/>
+  <text x="48" y="336" font-family="Inter" font-size="14" fill="#9CA3AF">I felt... Today I... Tomorrow I want to... or just share what's on your mind!</text>
+  <text x="48" y="360" font-family="Inter" font-size="14" fill="#111827">I actually did pretty well! I wrote down every</text>
+  <text x="48" y="380" font-family="Inter" font-size="14" fill="#111827">coffee, lunch, and even the parking meter. It was</text>
+  <text x="48" y="400" font-family="Inter" font-size="14" fill="#111827">eye-opening to see how the small stuff adds up.</text>
+  <text x="48" y="420" font-family="Inter" font-size="14" fill="#111827">Tomorrow I want to be more intentional.</text>
+  
+  <!-- Rating Section -->
+  <text x="32" y="464" font-family="Inter" font-size="18" font-weight="600" fill="#374151">How are you feeling about today?</text>
+  <text x="32" y="484" font-family="Inter" font-size="14" fill="#6B7280">(1 = rough day, 5 = amazing day)</text>
+  
+  <!-- Star Rating -->
+  <g transform="translate(32, 500)">
+    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#FACC15"/>
+    <path d="M62 2l3.09 6.26L72 9.27l-5 4.87 1.18 6.88L62 17.77l-6.18 3.25L57 14.14 52 9.27l6.91-1.01L62 2z" fill="#FACC15"/>
+    <path d="M112 2l3.09 6.26L122 9.27l-5 4.87 1.18 6.88L112 17.77l-6.18 3.25L107 14.14 102 9.27l6.91-1.01L112 2z" fill="#FACC15"/>
+    <path d="M162 2l3.09 6.26L172 9.27l-5 4.87 1.18 6.88L162 17.77l-6.18 3.25L157 14.14 152 9.27l6.91-1.01L162 2z" fill="#FACC15"/>
+    <path d="M212 2l3.09 6.26L222 9.27l-5 4.87 1.18 6.88L212 17.77l-6.18 3.25L207 14.14 202 9.27l6.91-1.01L212 2z" fill="#D1D5DB"/>
+  </g>
+  
+  <text x="32" y="548" font-family="Inter" font-size="14" fill="#6B7280">Tough day</text>
+  <text x="295" y="548" font-family="Inter" font-size="14" fill="#6B7280" text-anchor="end">Amazing day</text>
+  
+  <!-- Share Reflection Button -->
+  <rect x="32" y="568" width="311" height="48" rx="8" fill="#A89C90"/>
+  <text x="187.5" y="596" font-family="Inter" font-size="16" font-weight="600" fill="white" text-anchor="middle">Share My Reflection</text>
+  
+  <!-- Today's Progress Section -->
+  <text x="32" y="656" font-family="Inter" font-size="20" font-weight="700" fill="#111827">Today's Progress</text>
+  
+  <!-- Progress Cards -->
+  <rect x="32" y="676" width="95" height="80" rx="8" fill="#A3A69C1A" stroke="#A3A69C33"/>
+  <text x="79.5" y="704" font-family="Inter" font-size="24" font-weight="700" fill="#7F8C78" text-anchor="middle">3</text>
+  <text x="79.5" y="724" font-family="Inter" font-size="12" font-weight="500" fill="#7F8C78" text-anchor="middle">Stars Earned</text>
+  
+  <rect x="140" y="676" width="95" height="80" rx="8" fill="#D6DBE280" stroke="#D6DBE280"/>
+  <text x="187.5" y="704" font-family="Inter" font-size="24" font-weight="700" fill="#2563EB" text-anchor="middle">✓</text>
+  <text x="187.5" y="724" font-family="Inter" font-size="12" font-weight="500" fill="#A89C90" text-anchor="middle">Intention Set</text>
+  
+  <rect x="248" y="676" width="95" height="80" rx="8" fill="#E6DFF480" stroke="#E6DFF4"/>
+  <text x="295.5" y="704" font-family="Inter" font-size="24" font-weight="700" fill="#9333EA" text-anchor="middle">✓</text>
+  <text x="295.5" y="724" font-family="Inter" font-size="12" font-weight="500" fill="#A89C90" text-anchor="middle">Evening Done</text>
+</svg>
