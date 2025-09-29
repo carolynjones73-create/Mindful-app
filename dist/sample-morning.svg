@@ -4,76 +4,66 @@
   
   <!-- Header -->
   <rect x="24" y="24" width="64" height="64" rx="16" fill="#D9CFC4"/>
-  <text x="56" y="64" text-anchor="middle" fill="#7F8C78" font-size="28" font-weight="600">$</text>
-  
-  <text x="104" y="48" fill="#1F2937" font-size="24" font-weight="700">The Mindful Money App</text>
-  <text x="104" y="72" fill="#6B7280" font-size="16">Welcome back, Sarah</text>
+  <text x="56" y="64" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="600" fill="#7F8C78">$</text>
+  <text x="104" y="48" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#1F2937">The Mindful Money App</text>
+  <text x="104" y="72" font-family="Arial, sans-serif" font-size="16" fill="#6B7280">Welcome back, Sarah</text>
   
   <!-- Main Card -->
   <rect x="24" y="120" width="327" height="580" rx="16" fill="white" stroke="#E5E7EB"/>
   
   <!-- Morning Boost Header -->
-  <rect x="48" y="144" width="64" height="64" rx="12" fill="#F3E3C6"/>
-  <circle cx="80" cy="176" r="12" fill="#C9A99A"/>
-  <rect x="72" y="170" width="16" height="2" fill="white"/>
-  <rect x="79" y="163" width="2" height="16" fill="white"/>
-  <rect x="74" y="168" width="4" height="4" fill="white"/>
-  <rect x="82" y="168" width="4" height="4" fill="white"/>
-  <rect x="74" y="180" width="4" height="4" fill="white"/>
-  <rect x="82" y="180" width="4" height="4" fill="white"/>
-  
-  <text x="128" y="168" fill="#1F2937" font-size="20" font-weight="700">Morning Boost</text>
-  <text x="128" y="188" fill="#6B7280" font-size="14">Start your day with intention</text>
+  <rect x="48" y="144" width="56" height="56" rx="12" fill="#F3E3C6"/>
+  <circle cx="76" cy="172" r="12" fill="#C9A99A"/>
+  <rect x="70" y="166" width="12" height="12" fill="white"/>
+  <rect x="74" y="162" width="4" height="20" fill="white"/>
+  <text x="120" y="164" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#1F2937">Morning Boost</text>
+  <text x="120" y="184" font-family="Arial, sans-serif" font-size="16" fill="#6B7280">Start your day with intention</text>
   
   <!-- Quote Section -->
-  <rect x="48" y="232" width="279" height="120" rx="12" fill="#E6DFF4" stroke="#E6DFF4"/>
-  <text x="64" y="256" fill="#A89C90" font-size="24" font-weight="300">"</text>
-  
-  <text x="64" y="276" fill="#374151" font-size="16" font-style="italic" font-family="serif">It's not how much money you make,</text>
-  <text x="64" y="296" fill="#374151" font-size="16" font-style="italic" font-family="serif">but how much you keep, how hard</text>
-  <text x="64" y="316" fill="#374151" font-size="16" font-style="italic" font-family="serif">it works for you.</text>
-  
-  <text x="64" y="340" fill="#7F8C78" font-size="14" font-weight="600">— Robert Kiyosaki</text>
+  <rect x="48" y="224" width="279" height="120" rx="12" fill="#E6DFF4" stroke="#E6DFF4"/>
+  <text x="60" y="248" font-family="Arial, sans-serif" font-size="20" fill="#A89C90">"</text>
+  <text x="60" y="268" font-family="Georgia, serif" font-size="16" font-style="italic" fill="#374151">It's not how much money you make,</text>
+  <text x="60" y="288" font-family="Georgia, serif" font-size="16" font-style="italic" fill="#374151">but how much you keep, how hard</text>
+  <text x="60" y="308" font-family="Georgia, serif" font-size="16" font-style="italic" fill="#374151">it works for you.</text>
+  <text x="60" y="332" font-family="Arial, sans-serif" font-size="14" font-weight="600" fill="#6B7280">— Robert Kiyosaki</text>
   
   <!-- Tip Section -->
-  <rect x="48" y="372" width="279" height="80" rx="12" fill="#F3E3C6" stroke="#F3E3C6"/>
-  <circle cx="72" cy="396" r="8" fill="#C9A99A"/>
-  <circle cx="72" cy="396" r="3" fill="white"/>
-  
-  <text x="96" y="392" fill="#C9A99A" font-size="16" font-weight="700">💡 Today's Tip:</text>
-  <text x="64" y="416" fill="#374151" font-size="14">Set up an automatic transfer to</text>
-  <text x="64" y="436" fill="#374151" font-size="14">savings, even if it's just $5 per week.</text>
+  <rect x="48" y="364" width="279" height="80" rx="12" fill="#F3E3C6" stroke="#F3E3C6"/>
+  <circle cx="68" cy="384" r="8" fill="#C9A99A"/>
+  <text x="84" y="388" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#C9A99A">💡 Today's Tip:</text>
+  <text x="60" y="408" font-family="Arial, sans-serif" font-size="14" fill="#374151">Set up an automatic transfer to</text>
+  <text x="60" y="424" font-family="Arial, sans-serif" font-size="14" fill="#374151">savings, even if it's just $5 per week.</text>
   
   <!-- Intention Section -->
-  <circle cx="72" cy="484" r="12" fill="#6B7280"/>
-  <circle cx="72" cy="484" r="6" fill="white"/>
-  
-  <text x="96" y="488" fill="#374151" font-size="16" font-weight="600">What's your main intention for today?</text>
+  <circle cx="68" cy="472" r="12" fill="#6B7280"/>
+  <circle cx="68" cy="472" r="6" fill="white"/>
+  <text x="88" y="480" font-family="Arial, sans-serif" font-size="18" font-weight="600" fill="#374151">What's your main intention</text>
+  <text x="88" y="500" font-family="Arial, sans-serif" font-size="18" font-weight="600" fill="#374151">for today?</text>
   
   <!-- Text Area -->
-  <rect x="48" y="508" width="279" height="100" rx="8" fill="white" stroke="#D1D5DB"/>
-  <text x="64" y="528" fill="#9CA3AF" font-size="12">Based on today's inspiration, I intend to focus on...</text>
-  <text x="64" y="548" fill="#374151" font-size="14">Track every purchase I make today and write it</text>
-  <text x="64" y="568" fill="#374151" font-size="14">down in my notebook to become more aware</text>
-  <text x="64" y="588" fill="#374151" font-size="14">of my spending patterns.</text>
+  <rect x="48" y="520" width="279" height="80" rx="8" fill="white" stroke="#D1D5DB"/>
+  <text x="60" y="540" font-family="Arial, sans-serif" font-size="12" fill="#9CA3AF">Based on today's inspiration, I intend to focus on...</text>
+  <text x="60" y="560" font-family="Arial, sans-serif" font-size="14" fill="#374151">Track every purchase I make today and write it</text>
+  <text x="60" y="576" font-family="Arial, sans-serif" font-size="14" fill="#374151">down in my notebook to become more aware</text>
+  <text x="60" y="592" font-family="Arial, sans-serif" font-size="14" fill="#374151">of my spending patterns.</text>
   
   <!-- Button -->
-  <rect x="48" y="628" width="279" height="48" rx="8" fill="#C9A99A"/>
-  <text x="187.5" y="656" text-anchor="middle" fill="white" font-size="16" font-weight="600">Set My Intention</text>
+  <rect x="48" y="620" width="279" height="48" rx="8" fill="#C9A99A"/>
+  <text x="187.5" y="648" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="600" fill="white">Set My Intention</text>
   
   <!-- Progress Section -->
-  <text x="48" y="720" fill="#1F2937" font-size="18" font-weight="700">Today's Progress</text>
+  <text x="48" y="732" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#1F2937">Today's Progress</text>
   
   <!-- Progress Cards -->
-  <rect x="48" y="736" width="85" height="64" rx="8" fill="#DCFCE7" stroke="#BBF7D0"/>
-  <text x="90.5" y="756" text-anchor="middle" fill="#16A34A" font-size="20" font-weight="700">1</text>
-  <text x="90.5" y="772" text-anchor="middle" fill="#16A34A" font-size="10">Stars Earned</text>
+  <rect x="48" y="752" width="85" height="80" rx="8" fill="#DCFCE7" stroke="#BBF7D0"/>
+  <text x="90.5" y="776" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#16A34A">1</text>
+  <text x="90.5" y="792" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="600" fill="#16A34A">Stars Earned</text>
   
-  <rect x="145" y="736" width="85" height="64" rx="8" fill="#DBEAFE" stroke="#BFDBFE"/>
-  <text x="187.5" y="756" text-anchor="middle" fill="#2563EB" font-size="20">✓</text>
-  <text x="187.5" y="772" text-anchor="middle" fill="#2563EB" font-size="10">Intention Set</text>
+  <rect x="145" y="752" width="85" height="80" rx="8" fill="#DBEAFE" stroke="#BFDBFE"/>
+  <text x="187.5" y="780" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" fill="#2563EB">✓</text>
+  <text x="187.5" y="796" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="600" fill="#2563EB">Intention Set</text>
   
-  <rect x="242" y="736" width="85" height="64" rx="8" fill="#F3E8FF" stroke="#E9D5FF"/>
-  <text x="284.5" y="756" text-anchor="middle" fill="#9333EA" font-size="20">○</text>
-  <text x="284.5" y="772" text-anchor="middle" fill="#9333EA" font-size="10">Evening Todo</text>
+  <rect x="242" y="752" width="85" height="80" rx="8" fill="#F3E8FF" stroke="#E9D5FF"/>
+  <circle cx="284.5" cy="776" r="8" stroke="#A855F7" stroke-width="2" fill="none"/>
+  <text x="284.5" y="796" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="600" fill="#A855F7">Evening Todo</text>
 </svg>
