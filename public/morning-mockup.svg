@@ -11,8 +11,8 @@
   <circle cx="64" cy="64" r="12" fill="#C9A99A"/>
   <path d="M64 58v12M70 64h-12M68.5 59.5l-9 9M59.5 59.5l9 9" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
   
-  <text x="108" y="58" font-family="Inter, sans-serif" font-size="24" font-weight="700" fill="#111827">Morning Boost</text>
-  <text x="108" y="78" font-family="Inter, sans-serif" font-size="16" fill="#6B7280">Start your day with intention</text>
+  <text x="108" y="58" font-family="Inter, sans-serif" font-size="18" font-weight="700" fill="#111827">Morning Boost</text>
+  <text x="108" y="76" font-family="Inter, sans-serif" font-size="13" fill="#6B7280">Start your day with intention</text>
   
   <!-- Quote Box -->
   <rect x="40" y="108" width="295" height="100" rx="8" fill="#E6DFF4" stroke="#E6DFF4"/>
