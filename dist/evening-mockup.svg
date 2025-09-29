@@ -24,8 +24,8 @@
   <text x="50" y="238" font-family="Inter, sans-serif" font-size="14" fill="#A89C90">• What did you learn about yourself?</text>
   
   <!-- Share Section -->
-  <text x="40" y="278" font-family="Inter, sans-serif" font-size="18" font-weight="600" fill="#374151">Share whatever's on your mind - there's no</text>
-  <text x="40" y="298" font-family="Inter, sans-serif" font-size="18" font-weight="600" fill="#374151">right or wrong answer:</text>
+  <text x="40" y="278" font-family="Inter, sans-serif" font-size="15" font-weight="600" fill="#374151">Share whatever's on your mind - there's no</text>
+  <text x="40" y="298" font-family="Inter, sans-serif" font-size="15" font-weight="600" fill="#374151">right or wrong answer:</text>
   
   <!-- Text Input Box -->
   <rect x="40" y="318" width="295" height="120" rx="8" fill="white" stroke="#C7BFB4"/>
