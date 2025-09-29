@@ -32,9 +32,9 @@
   <!-- Tip Section -->
   <rect x="40" y="340" width="295" height="70" rx="12" fill="#F3E3C6"/>
   <circle cx="60" cy="365" r="8" fill="#C9A99A"/>
-  <text x="80" y="360" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#C9A99A">Today's Tip:</text>
-  <text x="50" y="380" font-family="Arial, sans-serif" font-size="13" fill="#374151">Set up automatic savings,</text>
-  <text x="50" y="395" font-family="Arial, sans-serif" font-size="13" fill="#374151">even if it's just $5 per week.</text>
+  <text x="187.5" y="360" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#C9A99A" text-anchor="middle">Today's Tip:</text>
+  <text x="187.5" y="380" font-family="Arial, sans-serif" font-size="13" fill="#374151" text-anchor="middle">Set up automatic savings,</text>
+  <text x="187.5" y="395" font-family="Arial, sans-serif" font-size="13" fill="#374151" text-anchor="middle">even if it's just $5 per week.</text>
   
   <!-- Question Section -->
   <circle cx="60" cy="440" r="12" fill="#6B7280"/>
