@@ -22,7 +22,7 @@ export default function EveningReflection({
   morningIntention, 
   userGoals,
   completedReflection,
-  completedRating
+  completedRating,
   committedAction,
   actionCompleted,
   onActionCompletionUpdate
