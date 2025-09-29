@@ -1,88 +1,103 @@
-<svg width="375" height="900" viewBox="0 0 375 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg width="375" height="700" viewBox="0 0 375 700" xmlns="http://www.w3.org/2000/svg">
   <!-- Background -->
-  <rect width="375" height="900" fill="#F5F2ED"/>
+  <rect width="375" height="700" fill="#f9fafb"/>
   
-  <!-- Header with moon icon -->
+  <!-- Header Section -->
   <g transform="translate(20, 20)">
-    <rect width="60" height="60" rx="12" fill="#E6DFF4"/>
-    <circle cx="30" cy="30" r="15" fill="#A89C90"/>
-    <circle cx="35" cy="25" r="12" fill="#E6DFF4"/>
-  </g>
-  
-  <text x="100" y="40" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#111827">Evening Reflection</text>
-  <text x="100" y="60" font-family="Arial, sans-serif" font-size="16" fill="#6B7280">Reflect on your progress and growth</text>
-  
-  <!-- Today's Progress Section -->
-  <text x="20" y="120" font-family="Arial, sans-serif" font-size="18" font-weight="600" fill="#111827">Today's Progress</text>
-  
-  <!-- Progress Cards -->
-  <g transform="translate(20, 140)">
-    <!-- Stars Earned Card -->
-    <rect width="100" height="80" rx="8" fill="#A3A69C" fill-opacity="0.1" stroke="#A3A69C" stroke-opacity="0.3"/>
-    <text x="50" y="30" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#7F8C78" text-anchor="middle">3</text>
-    <text x="50" y="50" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#7F8C78" text-anchor="middle">Stars Earned</text>
+    <!-- Moon Icon -->
+    <rect x="0" y="0" width="60" height="60" rx="12" fill="#e6dff4"/>
+    <path d="M30 15 C35 15, 40 20, 40 25 C40 35, 35 40, 30 40 C25 40, 20 35, 20 25 C20 20, 25 15, 30 15 Z" fill="#a89c90"/>
     
-    <!-- Intention Set Card -->
-    <rect x="115" width="100" height="80" rx="8" fill="#D6DBE2" fill-opacity="0.5" stroke="#D6DBE2"/>
-    <circle cx="165" cy="30" r="12" fill="none" stroke="#3B82F6" stroke-width="2"/>
-    <path d="M160 30 L163 33 L170 26" stroke="#3B82F6" stroke-width="2" fill="none"/>
-    <text x="165" y="55" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#A89C90" text-anchor="middle">Intention Set</text>
-    
-    <!-- Evening Done Card -->
-    <rect x="230" width="100" height="80" rx="8" fill="#E6DFF4" fill-opacity="0.5" stroke="#E6DFF4"/>
-    <circle cx="280" cy="30" r="12" fill="none" stroke="#9333EA" stroke-width="2"/>
-    <path d="M275 30 L278 33 L285 26" stroke="#9333EA" stroke-width="2" fill="none"/>
-    <text x="280" y="55" font-family="Arial, sans-serif" font-size="12" font-weight="500" fill="#A89C90" text-anchor="middle">Evening Done</text>
+    <!-- Header Text -->
+    <text x="75" y="25" font-family="Inter, sans-serif" font-size="24" font-weight="700" fill="#111827">Evening Reflection</text>
+    <text x="75" y="45" font-family="Inter, sans-serif" font-size="16" font-weight="400" fill="#6b7280">Reflect on your progress and growth</text>
   </g>
   
   <!-- Main Content Card -->
-  <rect x="20" y="250" width="335" height="380" rx="12" fill="white" stroke="#E5E7EB"/>
-  
-  <!-- Prompt Section -->
-  <rect x="35" y="270" width="305" height="90" rx="8" fill="#E6DFF4" fill-opacity="0.5" stroke="#E6DFF4"/>
-  <text x="50" y="290" font-family="Arial, sans-serif" font-size="14" font-weight="500" fill="#111827">Earlier today, you set an intention to</text>
-  <text x="50" y="310" font-family="Arial, sans-serif" font-size="14" font-weight="500" fill="#111827">focus on: "Track every expense today."</text>
-  <text x="50" y="330" font-family="Arial, sans-serif" font-size="14" font-weight="500" fill="#111827">How did that go for you?</text>
-  
-  <text x="50" y="350" font-family="Arial, sans-serif" font-size="12" fill="#A89C90">• What moments made you feel proud?</text>
-  
-  <!-- Input Label -->
-  <text x="35" y="390" font-family="Arial, sans-serif" font-size="16" font-weight="600" fill="#111827">Share whatever's on your mind - there's no</text>
-  <text x="35" y="410" font-family="Arial, sans-serif" font-size="16" font-weight="600" fill="#111827">right or wrong answer:</text>
-  
-  <!-- Text Area -->
-  <rect x="35" y="425" width="305" height="80" rx="8" fill="white" stroke="#C7BFB4"/>
-  <text x="45" y="445" font-family="Arial, sans-serif" font-size="13" fill="#9CA3AF">I felt... Today I... Tomorrow I want to...</text>
-  <text x="45" y="465" font-family="Arial, sans-serif" font-size="13" fill="#111827">I actually did pretty well! I wrote down</text>
-  <text x="45" y="485" font-family="Arial, sans-serif" font-size="13" fill="#111827">every coffee, lunch, and parking meter.</text>
-  
-  <!-- Rating Section -->
-  <text x="35" y="535" font-family="Arial, sans-serif" font-size="16" font-weight="600" fill="#111827">How are you feeling about today?</text>
-  <text x="35" y="555" font-family="Arial, sans-serif" font-size="14" fill="#6B7280">(1 = rough day, 5 = amazing day)</text>
-  
-  <!-- Stars -->
-  <g transform="translate(35, 565)">
-    <circle cx="15" cy="15" r="15" fill="#FACC15"/>
-    <path d="M15 5 L18 12 L25 12 L20 17 L22 24 L15 20 L8 24 L10 17 L5 12 L12 12 Z" fill="white"/>
+  <g transform="translate(20, 110)">
+    <rect width="335" height="550" rx="12" fill="white" stroke="#e5e7eb" stroke-width="1"/>
     
-    <circle cx="55" cy="15" r="15" fill="#FACC15"/>
-    <path d="M55 5 L58 12 L65 12 L60 17 L62 24 L55 20 L48 24 L50 17 L45 12 L52 12 Z" fill="white"/>
+    <!-- Purple Prompt Section -->
+    <g transform="translate(20, 20)">
+      <rect width="295" height="120" rx="8" fill="#e6dff4"/>
+      
+      <!-- Main prompt text -->
+      <text x="15" y="25" font-family="Inter, sans-serif" font-size="16" font-weight="600" fill="#374151">
+        <tspan x="15" dy="0">Let's still take a moment to reflect. How did your day go with</tspan>
+        <tspan x="15" dy="20">working on saving money and reducing your spending?</tspan>
+      </text>
+      
+      <!-- Bullet points -->
+      <text x="15" y="65" font-family="Inter, sans-serif" font-size="14" font-weight="400" fill="#9ca3af">
+        <tspan x="15" dy="0">• What's one small win you can celebrate from today?</tspan>
+        <tspan x="15" dy="18">• Did anything happen today that moved you closer to your goals?</tspan>
+        <tspan x="15" dy="18">• What's on your mind as you wrap up the day?</tspan>
+      </text>
+    </g>
     
-    <circle cx="95" cy="15" r="15" fill="#FACC15"/>
-    <path d="M95 5 L98 12 L105 12 L100 17 L102 24 L95 20 L88 24 L90 17 L85 12 L92 12 Z" fill="white"/>
+    <!-- Share section -->
+    <g transform="translate(20, 160)">
+      <text x="0" y="20" font-family="Inter, sans-serif" font-size="18" font-weight="600" fill="#374151">
+        Share whatever's on your mind - there's no right or wrong answer:
+      </text>
+      
+      <!-- Text area -->
+      <rect x="0" y="35" width="295" height="120" rx="8" fill="white" stroke="#d1d5db" stroke-width="1"/>
+      <text x="15" y="55" font-family="Inter, sans-serif" font-size="14" font-weight="400" fill="#9ca3af">
+        I felt... Today I... Tomorrow I want to... or just share what's on your mind!
+      </text>
+    </g>
     
-    <circle cx="135" cy="15" r="15" fill="#FACC15"/>
-    <path d="M135 5 L138 12 L145 12 L140 17 L142 24 L135 20 L128 24 L130 17 L125 12 L132 12 Z" fill="white"/>
+    <!-- Rating section -->
+    <g transform="translate(20, 340)">
+      <text x="0" y="20" font-family="Inter, sans-serif" font-size="18" font-weight="600" fill="#374151">
+        How are you feeling about today? (1 = rough day, 5 = amazing day)
+      </text>
+      
+      <!-- Stars -->
+      <g transform="translate(80, 35)">
+        <!-- Star 1 -->
+        <g transform="translate(0, 0)">
+          <circle cx="15" cy="15" r="15" fill="#f3f4f6" stroke="#d1d5db" stroke-width="1"/>
+          <path d="M15 8 L17 13 L22 13 L18 16 L19 21 L15 18 L11 21 L12 16 L8 13 L13 13 Z" fill="#d1d5db"/>
+        </g>
+        
+        <!-- Star 2 -->
+        <g transform="translate(35, 0)">
+          <circle cx="15" cy="15" r="15" fill="#f3f4f6" stroke="#d1d5db" stroke-width="1"/>
+          <path d="M15 8 L17 13 L22 13 L18 16 L19 21 L15 18 L11 21 L12 16 L8 13 L13 13 Z" fill="#d1d5db"/>
+        </g>
+        
+        <!-- Star 3 -->
+        <g transform="translate(70, 0)">
+          <circle cx="15" cy="15" r="15" fill="#f3f4f6" stroke="#d1d5db" stroke-width="1"/>
+          <path d="M15 8 L17 13 L22 13 L18 16 L19 21 L15 18 L11 21 L12 16 L8 13 L13 13 Z" fill="#d1d5db"/>
+        </g>
+        
+        <!-- Star 4 -->
+        <g transform="translate(105, 0)">
+          <circle cx="15" cy="15" r="15" fill="#f3f4f6" stroke="#d1d5db" stroke-width="1"/>
+          <path d="M15 8 L17 13 L22 13 L18 16 L19 21 L15 18 L11 21 L12 16 L8 13 L13 13 Z" fill="#d1d5db"/>
+        </g>
+        
+        <!-- Star 5 -->
+        <g transform="translate(140, 0)">
+          <circle cx="15" cy="15" r="15" fill="#f3f4f6" stroke="#d1d5db" stroke-width="1"/>
+          <path d="M15 8 L17 13 L22 13 L18 16 L19 21 L15 18 L11 21 L12 16 L8 13 L13 13 Z" fill="#d1d5db"/>
+        </g>
+      </g>
+      
+      <!-- Rating labels -->
+      <text x="0" y="85" font-family="Inter, sans-serif" font-size="14" font-weight="400" fill="#6b7280">Tough day</text>
+      <text x="220" y="85" font-family="Inter, sans-serif" font-size="14" font-weight="400" fill="#6b7280">Amazing day</text>
+    </g>
     
-    <circle cx="175" cy="15" r="15" fill="#E5E7EB"/>
-    <path d="M175 5 L178 12 L185 12 L180 17 L182 24 L175 20 L168 24 L170 17 L165 12 L172 12 Z" fill="#9CA3AF"/>
+    <!-- Submit Button -->
+    <g transform="translate(20, 470)">
+      <rect width="295" height="50" rx="8" fill="#a89c90"/>
+      <text x="147.5" y="32" font-family="Inter, sans-serif" font-size="16" font-weight="600" fill="white" text-anchor="middle">
+        Share My Reflection
+      </text>
+    </g>
   </g>
-  
-  <!-- Rating Labels -->
-  <text x="35" y="615" font-family="Arial, sans-serif" font-size="14" fill="#6B7280">Tough day</text>
-  <text x="280" y="615" font-family="Arial, sans-serif" font-size="14" fill="#6B7280">Amazing day</text>
-  
-  <!-- Submit Button -->
-  <rect x="36" y="820" width="303" height="48" rx="8" fill="#A89C90"/>
-  <text x="187.5" y="848" text-anchor="middle" fill="white" font-size="16" font-weight="600">Share My Reflection</text>
 </svg>
