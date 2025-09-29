@@ -39,7 +39,7 @@
   
   <!-- Text Input Box -->
   <rect x="40" y="378" width="295" height="120" rx="8" fill="white" stroke="#C7BFB4"/>
-  <text x="50" y="398" font-family="Inter, sans-serif" font-size="14" fill="#9CA3AF">Based on today's inspiration, I intend to focus on...</text>
+  <text x="50" y="398" font-family="Inter, sans-serif" font-size="12" fill="#9CA3AF">Based on today's inspiration, I intend to focus on...</text>
   <text x="50" y="428" font-family="Inter, sans-serif" font-size="14" fill="#374151">Track every expense today and reflect</text>
   <text x="50" y="448" font-family="Inter, sans-serif" font-size="14" fill="#374151">on whether each purchase aligns</text>
   <text x="50" y="468" font-family="Inter, sans-serif" font-size="14" fill="#374151">with my financial goals.</text>
