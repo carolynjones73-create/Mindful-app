@@ -30,21 +30,21 @@
   <!-- Text Input Box -->
   <rect x="40" y="318" width="295" height="120" rx="8" fill="white" stroke="#C7BFB4"/>
   <text x="50" y="338" font-family="Inter, sans-serif" font-size="14" fill="#9CA3AF">I felt... Today I... Tomorrow I want to...</text>
-  <text x="50" y="368" font-family="Inter, sans-serif" font-size="14" fill="#374151">I actually did pretty well! I wrote down</text>
+  <g transform="translate(30, 1350)">
   <text x="50" y="388" font-family="Inter, sans-serif" font-size="14" fill="#374151">every coffee, lunch, and parking meter.</text>
-  <text x="50" y="408" font-family="Inter, sans-serif" font-size="14" fill="#374151">Tomorrow I want to be more intentional.</text>
-  
-  <!-- Rating Section -->
+    <rect x="0" y="0" width="110" height="100" rx="10" fill="#d1fae5" stroke="#a7f3d0" stroke-width="1"/>
+    <text x="55" y="35" text-anchor="middle" font-size="36" font-weight="bold" fill="#065f46">3</text>
+    <text x="55" y="55" text-anchor="middle" font-size="12" fill="#047857">Stars Earned</text>
   <text x="40" y="468" font-family="Inter, sans-serif" font-size="18" font-weight="600" fill="#374151">How are you feeling about today?</text>
   <text x="40" y="488" font-family="Inter, sans-serif" font-size="14" fill="#6B7280">(1 = rough day, 5 = amazing day)</text>
-    <rect x="117" y="0" width="100" height="80" rx="8" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
-    <path d="M157 20 L167 30 L182 15" stroke="#10b981" stroke-width="2" fill="none"/>
-    <text x="167" y="50" font-family="Inter, sans-serif" font-size="12" fill="#2563eb" text-anchor="middle">Intention Set</text>
+    <rect x="125" y="0" width="110" height="100" rx="10" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
+    <text x="180" y="25" text-anchor="middle" font-size="24" fill="#16a34a">✓</text>
+    <text x="180" y="55" text-anchor="middle" font-size="12" fill="#1e40af">Intention Set</text>
     <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#FACC15"/>
     <path d="M62 2l3.09 6.26L72 9.27l-5 4.87 1.18 6.88L62 17.77l-6.18 3.25L57 14.14 52 9.27l6.91-1.01L62 2z" fill="#FACC15"/>
-    <rect x="234" y="0" width="100" height="80" rx="8" fill="#e9d5ff" stroke="#c4b5fd" stroke-width="1"/>
-    <path d="M274 20 L284 30 L299 15" stroke="#10b981" stroke-width="2" fill="none"/>
-    <text x="284" y="50" font-family="Inter, sans-serif" font-size="12" fill="#7c3aed" text-anchor="middle">Evening Done</text>
+    <rect x="250" y="0" width="110" height="100" rx="10" fill="#e9d5ff" stroke="#c4b5fd" stroke-width="1"/>
+    <text x="305" y="25" text-anchor="middle" font-size="24" fill="#16a34a">✓</text>
+    <text x="305" y="55" text-anchor="middle" font-size="12" fill="#7c3aed">Evening Done</text>
   </g>
   
   <text x="40" y="568" font-family="Inter, sans-serif" font-size="14" fill="#6B7280">Tough day</text>
