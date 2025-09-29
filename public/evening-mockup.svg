@@ -58,7 +58,6 @@
   <text x="40" y="666" font-family="Inter, sans-serif" font-size="24" font-weight="700" fill="#111827">Today's Progress</text>
   
   <!-- Progress Cards -->
-  <g transform="translate(37, 1340)">
   <rect x="40" y="686" width="85" height="80" rx="8" fill="#D1FAE5" stroke="#A7F3D0"/>
   <text x="82.5" y="710" font-family="Inter, sans-serif" font-size="24" font-weight="700" fill="#059669" text-anchor="middle">3</text>
   <text x="82.5" y="728" font-family="Inter, sans-serif" font-size="12" font-weight="500" fill="#059669" text-anchor="middle">Stars Earned</text>
@@ -70,6 +69,5 @@
   
   <!-- Evening Done -->
   <rect x="250" y="686" width="85" height="80" rx="8" fill="#F3E8FF" stroke="#E9D5FF"/>
-  <path d="M285 716l5 5 10-10" stroke="#059669" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
   <text x="292.5" y="738" font-family="Inter, sans-serif" font-size="12" font-weight="500" fill="#7C3AED" text-anchor="middle">Evening Done</text>
 </svg>
