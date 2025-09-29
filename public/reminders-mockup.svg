@@ -1,0 +1,74 @@
+<svg width="400" height="600" viewBox="0 0 400 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="400" height="600" fill="#F5F2ED" rx="20"/>
+  
+  <!-- Header -->
+  <rect x="20" y="20" width="360" height="80" fill="#E6DFF4" rx="16" stroke="#C7BFB4" stroke-width="1"/>
+  
+  <!-- Bell Icon -->
+  <rect x="35" y="35" width="50" height="50" fill="#A89C90" rx="12"/>
+  <g transform="translate(52, 52)">
+    <path d="M8 2C8 0.895431 8.89543 0 10 0H14C15.1046 0 16 0.895431 16 2V4.10125C18.2625 5.10125 20 7.27625 20 10V16L22 18V20H2V18L4 16V10C4 7.27625 5.7375 5.10125 8 4.10125V2Z" fill="white"/>
+    <path d="M10 24C11.1046 24 12 23.1046 12 22H8C8 23.1046 8.89543 24 10 24Z" fill="white"/>
+  </g>
+  
+  <!-- Header Text -->
+  <text x="100" y="50" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#374151">Notifications</text>
+  <text x="100" y="75" font-family="Arial, sans-serif" font-size="14" fill="#6B7280">Get reminded for your daily practice</text>
+  
+  <!-- Status Card -->
+  <rect x="20" y="120" width="360" height="100" fill="white" rx="12" stroke="#D1D5DB" stroke-width="1"/>
+  
+  <!-- Status Icon -->
+  <circle cx="50" cy="155" r="15" fill="#10B981"/>
+  <g transform="translate(42, 147)">
+    <path d="M7 13L3 9L4.41 7.59L7 10.17L12.59 4.58L14 6L7 13Z" fill="white"/>
+  </g>
+  
+  <!-- Status Text -->
+  <text x="80" y="155" font-family="Arial, sans-serif" font-size="16" font-weight="600" fill="#374151">Notifications enabled</text>
+  <text x="80" y="175" font-family="Arial, sans-serif" font-size="14" fill="#6B7280">You'll receive daily reminders at 7 AM and 8 PM</text>
+  
+  <!-- Test Button -->
+  <rect x="80" y="185" width="120" height="25" fill="#A89C90" rx="6"/>
+  <text x="140" y="200" font-family="Arial, sans-serif" font-size="12" font-weight="600" fill="white" text-anchor="middle">Test Notification</text>
+  
+  <!-- Sample Notifications -->
+  <text x="20" y="260" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#374151">Sample Notifications</text>
+  
+  <!-- Morning Notification -->
+  <rect x="20" y="280" width="360" height="80" fill="#FEF3C7" rx="12" stroke="#F59E0B" stroke-width="1"/>
+  <rect x="35" y="295" width="40" height="40" fill="#F59E0B" rx="8"/>
+  <g transform="translate(50, 310)">
+    <circle cx="5" cy="5" r="4" fill="white"/>
+    <path d="M5 2V5L7 7" stroke="white" stroke-width="1" stroke-linecap="round" fill="none"/>
+  </g>
+  <text x="90" y="310" font-family="Arial, sans-serif" font-size="14" font-weight="600" fill="#92400E">The Mindful Money App</text>
+  <text x="90" y="325" font-family="Arial, sans-serif" font-size="12" fill="#92400E">Start your day with intention and inspiration! 🌅</text>
+  <text x="90" y="345" font-family="Arial, sans-serif" font-size="11" fill="#B45309">7:00 AM • Morning Reminder</text>
+  
+  <!-- Evening Notification -->
+  <rect x="20" y="380" width="360" height="80" fill="#EDE9FE" rx="12" stroke="#8B5CF6" stroke-width="1"/>
+  <rect x="35" y="395" width="40" height="40" fill="#8B5CF6" rx="8"/>
+  <g transform="translate(50, 410)">
+    <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C7.03 6 3 10.03 3 15C3 16.1 2.1 17 1 17C-0.1 17 -1 16.1 -1 15C-1 8.92 3.92 4 10 4C10.7 4 11.4 4.1 12 4.2V2Z" fill="white"/>
+  </g>
+  <text x="90" y="410" font-family="Arial, sans-serif" font-size="14" font-weight="600" fill="#5B21B6">The Mindful Money App</text>
+  <text x="90" y="425" font-family="Arial, sans-serif" font-size="12" fill="#5B21B6">Time to reflect on your progress today! 🌙</text>
+  <text x="90" y="445" font-family="Arial, sans-serif" font-size="11" fill="#7C3AED">8:00 PM • Evening Reminder</text>
+  
+  <!-- Settings Section -->
+  <text x="20" y="500" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#374151">Reminder Times</text>
+  
+  <!-- Morning Time -->
+  <rect x="20" y="520" width="170" height="60" fill="white" rx="8" stroke="#D1D5DB" stroke-width="1"/>
+  <text x="30" y="540" font-family="Arial, sans-serif" font-size="14" font-weight="600" fill="#374151">Morning</text>
+  <text x="30" y="555" font-family="Arial, sans-serif" font-size="12" fill="#6B7280">Daily intention</text>
+  <text x="30" y="570" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#F59E0B">7:00 AM</text>
+  
+  <!-- Evening Time -->
+  <rect x="210" y="520" width="170" height="60" fill="white" rx="8" stroke="#D1D5DB" stroke-width="1"/>
+  <text x="220" y="540" font-family="Arial, sans-serif" font-size="14" font-weight="600" fill="#374151">Evening</text>
+  <text x="220" y="555" font-family="Arial, sans-serif" font-size="12" fill="#6B7280">Daily reflection</text>
+  <text x="220" y="570" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#8B5CF6">8:00 PM</text>
+</svg>
