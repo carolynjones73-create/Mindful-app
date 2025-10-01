@@ -14,6 +14,7 @@ export default function MorningBoost({ onIntentionComplete, isCompleted, intenti
   const [tip, setTip] = useState<string>('');
   const [currentIntention, setCurrentIntention] = useState('');
   const [showCelebration, setShowCelebration] = useState(false);
+  const [hasTriggeredCelebration, setHasTriggeredCelebration] = useState(false);
 
   useEffect(() => {
     // Get a random quote and corresponding tip
@@ -22,15 +23,23 @@ export default function MorningBoost({ onIntentionComplete, isCompleted, intenti
     setTip(getTipForQuote(randomQuote));
   }, []);
 
-  // Show celebration popup when both intention and action are completed
+  // Show celebration popup when both intention is completed AND action is committed
   useEffect(() => {
-    if (isCompleted && committedAction && !showCelebration) {
-      // Small delay for smooth popup appearance
+    console.log('Checking celebration trigger:', { 
+      isCompleted, 
+      committedAction: !!committedAction, 
+      hasTriggeredCelebration,
+      showCelebration 
+    });
+    
+    if (isCompleted && committedAction && !hasTriggeredCelebration && !showCelebration) {
+      console.log('Triggering celebration popup!');
+      setHasTriggeredCelebration(true);
       setTimeout(() => {
         setShowCelebration(true);
       }, 500);
     }
-  }, [isCompleted, committedAction, showCelebration]);
+  }, [isCompleted, committedAction, hasTriggeredCelebration, showCelebration]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
