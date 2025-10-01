@@ -7,6 +7,7 @@ interface MorningBoostProps {
   isCompleted: boolean;
   intention?: string;
   committedAction?: string;
+  newBadges?: any[];
 }
 
 export default function MorningBoost({ onIntentionComplete, isCompleted, intention, committedAction }: MorningBoostProps) {
