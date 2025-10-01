@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Moon, Star } from 'lucide-react';
+import { Moon, Star, X } from 'lucide-react';
 import { Prompt } from '../../types';
 
 interface EveningReflectionProps {
@@ -30,6 +30,18 @@ export default function EveningReflection({
   const [reflection, setReflection] = useState('');
   const [rating, setRating] = useState(0);
   const [hoveredRating, setHoveredRating] = useState(0);
+  const [showCelebration, setShowCelebration] = useState(false);
+  const [hasTriggeredCelebration, setHasTriggeredCelebration] = useState(false);
+
+  // Show celebration popup when evening reflection is completed
+  React.useEffect(() => {
+    if (isCompleted && !hasTriggeredCelebration && !showCelebration) {
+      setHasTriggeredCelebration(true);
+      setTimeout(() => {
+        setShowCelebration(true);
+      }, 500);
+    }
+  }, [isCompleted, hasTriggeredCelebration, showCelebration]);
 
   const getConversationalPrompts = () => {
     const goalMapping: { [key: string]: string } = {
@@ -77,8 +89,98 @@ export default function EveningReflection({
     }
   };
 
+  const calculateTotalStars = () => {
+    let stars = 1; // Base star for completing reflection
+    if (morningIntention) stars += 2; // Morning intention stars
+    if (actionCompleted === true) stars += 1; // Action completion star
+    return stars;
+  };
   if (isCompleted) {
     return (
+      <>
+        {/* Evening Celebration Popup */}
+        {showCelebration && (
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+            <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 animate-in">
+              <button
+                onClick={() => setShowCelebration(false)}
+                className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
+              >
+                <X className="w-5 h-5" />
+              </button>
+
+              <div className="text-center mb-6">
+                <div className="w-20 h-20 bg-gradient-to-br from-purple-400 to-opal rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-3xl">🌙</span>
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">Day Complete!</h3>
+                <p className="text-muted-taupe font-medium">You've finished another day of growth! 🎉</p>
+              </div>
+
+              <div className="space-y-4 mb-6">
+                {morningIntention && (
+                  <div className="bg-sage-green/10 rounded-lg p-4 border border-sage-green/30">
+                    <div className="flex items-center gap-3 mb-2">
+                      <span className="text-lg">🎯</span>
+                      <h4 className="font-semibold text-gray-900">Today's Intention</h4>
+                      <span className="ml-auto text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">✓ Completed</span>
+                    </div>
+                    <p className="text-gray-900 italic font-serif text-sm">"{morningIntention}"</p>
+                  </div>
+                )}
+
+                {committedAction && (
+                  <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
+                    <div className="flex items-center gap-3 mb-2">
+                      <span className="text-lg">⚡</span>
+                      <h4 className="font-semibold text-gray-900">Action Status</h4>
+                      <span className={`ml-auto text-xs px-2 py-1 rounded-full ${
+                        actionCompleted === true 
+                          ? 'bg-green-100 text-green-700' 
+                          : actionCompleted === false
+                          ? 'bg-orange-100 text-orange-700'
+                          : 'bg-gray-100 text-gray-700'
+                      }`}>
+                        {actionCompleted === true ? '✓ Done' : actionCompleted === false ? '○ Tried' : '○ Committed'}
+                      </span>
+                    </div>
+                    <p className="text-gray-700 text-sm">{committedAction}</p>
+                  </div>
+                )}
+
+                <div className="bg-opal/50 rounded-lg p-4 border border-opal">
+                  <div className="flex items-center gap-3 mb-2">
+                    <span className="text-lg">💭</span>
+                    <h4 className="font-semibold text-gray-900">Evening Reflection</h4>
+                    <span className="ml-auto text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded-full">✓ Shared</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm text-gray-600">Day rating:</span>
+                    <div className="flex gap-1">
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <Star
+                          key={star}
+                          className={`w-4 h-4 ${
+                            star <= (completedRating || 0)
+                              ? 'text-golden-cream fill-current'
+                              : 'text-gray-300'
+                          }`}
+                        />
+                      ))}
+                    </div>
+                    <span className="text-sm text-gray-600">({completedRating}/5)</span>
+                  </div>
+                </div>
+
+                <div className="bg-gradient-to-r from-golden-cream/50 to-warm-blush/50 rounded-lg p-4 border border-golden-cream">
+                  <div className="flex items-center gap-3 mb-2">
+                    <span className="text-lg">⭐</span>
+                    <h4 className="font-semibold text-gray-900">Today's Stars</h4>
+                    <span className="ml-auto text-lg font-bold text-soft-clay">{calculateTotalStars()} ⭐</span>
+                  </div>
+                  <p className="text-sm text-gray-600">Another day of progress in the books!</p>
+                </div>
+              </div>
       <div className="bg-gradient-to-br from-opal to-soft-sky rounded-lg border border-opal p-6">
         <div className="flex items-center gap-4 mb-4">
           <div className="w-12 h-12 bg-opal rounded-lg flex items-center justify-center">
@@ -116,6 +218,7 @@ export default function EveningReflection({
           </div>
         )}
       </div>
+      </>
     );
   }
 
