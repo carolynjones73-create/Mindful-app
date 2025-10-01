@@ -533,6 +533,11 @@ export default function Dashboard() {
                     onIntentionComplete={handleIntentionComplete}
                     isCompleted={dailyEntry?.morning_completed || false}
                     intention={dailyEntry?.morning_intention}
+                    committedAction={
+                      dailyEntry?.quick_action_id 
+                        ? quickActions.find(qa => qa.id === dailyEntry.quick_action_id)?.action_text
+                        : undefined
+                    }
                   />
 
                   {tip && (

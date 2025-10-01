@@ -6,12 +6,15 @@ interface MorningBoostProps {
   onIntentionComplete: (intention: string) => void;
   isCompleted: boolean;
   intention?: string;
+  committedAction?: string;
+  onViewDayAhead?: () => void;
 }
 
-export default function MorningBoost({ onIntentionComplete, isCompleted, intention }: MorningBoostProps) {
+export default function MorningBoost({ onIntentionComplete, isCompleted, intention, committedAction, onViewDayAhead }: MorningBoostProps) {
   const [quote, setQuote] = useState<Quote | null>(null);
   const [tip, setTip] = useState<string>('');
   const [currentIntention, setCurrentIntention] = useState('');
+  const [showDayAhead, setShowDayAhead] = useState(false);
 
   useEffect(() => {
     // Get a random quote and corresponding tip
@@ -20,12 +23,86 @@ export default function MorningBoost({ onIntentionComplete, isCompleted, intenti
     setTip(getTipForQuote(randomQuote));
   }, []);
 
+  // Show "Your Day Ahead" view when both intention and action are completed
+  useEffect(() => {
+    if (isCompleted && committedAction && !showDayAhead) {
+      // Small delay for smooth transition
+      setTimeout(() => {
+        setShowDayAhead(true);
+      }, 500);
+    }
+  }, [isCompleted, committedAction, showDayAhead]);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (currentIntention.trim()) {
       onIntentionComplete(currentIntention);
     }
   };
+
+  // Your Day Ahead view
+  if (showDayAhead && intention && committedAction) {
+    return (
+      <div className="bg-gradient-to-br from-sage-green/10 to-palm-green/10 rounded-lg border border-sage-green/30 p-6">
+        <div className="text-center mb-6">
+          <div className="w-16 h-16 bg-gradient-to-br from-golden-cream to-warm-blush rounded-full flex items-center justify-center mx-auto mb-4">
+            <span className="text-2xl">🌟</span>
+          </div>
+          <h3 className="text-2xl font-bold text-gray-900 mb-2">Your Day Ahead</h3>
+          <p className="text-palm-green font-medium">Morning setup complete! You're ready to make today amazing.</p>
+        </div>
+
+        <div className="space-y-4 mb-6">
+          <div className="bg-white/80 rounded-lg p-4 border border-sage-green/30">
+            <div className="flex items-center gap-3 mb-2">
+              <span className="text-lg">🎯</span>
+              <h4 className="font-semibold text-gray-900">Today's Intention</h4>
+              <span className="ml-auto text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">✓ Set</span>
+            </div>
+            <p className="text-gray-900 italic font-serif">"{intention}"</p>
+          </div>
+
+          <div className="bg-white/80 rounded-lg p-4 border border-sage-green/30">
+            <div className="flex items-center gap-3 mb-2">
+              <span className="text-lg">⚡</span>
+              <h4 className="font-semibold text-gray-900">Committed Action</h4>
+              <span className="ml-auto text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full">✓ Committed</span>
+            </div>
+            <p className="text-gray-700">{committedAction}</p>
+          </div>
+
+          <div className="bg-gradient-to-r from-golden-cream/50 to-warm-blush/50 rounded-lg p-4 border border-golden-cream">
+            <div className="flex items-center gap-3 mb-2">
+              <span className="text-lg">⭐</span>
+              <h4 className="font-semibold text-gray-900">Stars Earned</h4>
+              <span className="ml-auto text-lg font-bold text-soft-clay">3 ⭐</span>
+            </div>
+            <p className="text-sm text-gray-600">Great start! We'll check in this evening to see how your day went.</p>
+          </div>
+        </div>
+
+        <div className="text-center">
+          <p className="text-gray-600 mb-4">
+            Remember your intention throughout the day, and don't forget about your committed action!
+          </p>
+          <p className="text-sm text-palm-green font-medium">
+            See you this evening for reflection 🌙
+          </p>
+        </div>
+
+        {onViewDayAhead && (
+          <div className="mt-6 text-center">
+            <button
+              onClick={onViewDayAhead}
+              className="text-soft-clay hover:text-muted-taupe text-sm underline"
+            >
+              Back to morning setup
+            </button>
+          </div>
+        )}
+      </div>
+    );
+  }
 
   const getThemeColors = (category: string) => {
     switch (category) {
