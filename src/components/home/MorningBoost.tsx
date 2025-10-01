@@ -16,6 +16,14 @@ export default function MorningBoost({ onIntentionComplete, isCompleted, intenti
   const [showCelebration, setShowCelebration] = useState(false);
   const [hasTriggeredCelebration, setHasTriggeredCelebration] = useState(false);
 
+  // Reset celebration state when entry is cleared (after reset)
+  useEffect(() => {
+    if (!isCompleted && !committedAction) {
+      setHasTriggeredCelebration(false);
+      setShowCelebration(false);
+    }
+  }, [isCompleted, committedAction]);
+
   useEffect(() => {
     // Get a random quote and corresponding tip
     const randomQuote = getRandomQuote();
