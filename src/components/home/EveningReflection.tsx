@@ -181,6 +181,17 @@ export default function EveningReflection({
                   <p className="text-sm text-gray-600">Another day of progress in the books!</p>
                 </div>
               </div>
+
+              <button
+                onClick={() => setShowCelebration(false)}
+                className="w-full bg-gradient-to-r from-muted-taupe to-soft-clay text-white py-3 px-6 rounded-lg font-semibold hover:from-soft-clay hover:to-muted-taupe focus:ring-2 focus:ring-muted-taupe focus:ring-offset-2 transition-all duration-200"
+              >
+                Perfect! Good Night 🌙
+              </button>
+            </div>
+          </div>
+        )}
+
       <div className="bg-gradient-to-br from-opal to-soft-sky rounded-lg border border-opal p-6">
         <div className="flex items-center gap-4 mb-4">
           <div className="w-12 h-12 bg-opal rounded-lg flex items-center justify-center">
