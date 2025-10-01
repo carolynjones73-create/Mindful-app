@@ -285,6 +285,8 @@ export default function Dashboard() {
 
       setDailyEntry(null);
       setActionCompleted(undefined);
+      // Force a refetch to ensure we get the latest state
+      await fetchDailyEntry();
       await fetchUserStats();
       
       // Also refresh badges since stats changed
