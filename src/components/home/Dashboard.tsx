@@ -444,12 +444,6 @@ export default function Dashboard() {
       )}
 
       {/* Badge Notification */}
-      {newBadges.length > 0 && (
-        <BadgeNotification
-          badges={newBadges}
-          onClose={() => setNewBadges([])}
-        />
-      )}
 
       <header className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">

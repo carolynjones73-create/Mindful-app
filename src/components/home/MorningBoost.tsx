@@ -10,7 +10,7 @@ interface MorningBoostProps {
   newBadges?: any[];
 }
 
-export default function MorningBoost({ onIntentionComplete, isCompleted, intention, committedAction }: MorningBoostProps) {
+export default function MorningBoost({ onIntentionComplete, isCompleted, intention, committedAction, newBadges }: MorningBoostProps) {
   const [quote, setQuote] = useState<Quote | null>(null);
   const [tip, setTip] = useState<string>('');
   const [currentIntention, setCurrentIntention] = useState('');
@@ -146,6 +146,31 @@ export default function MorningBoost({ onIntentionComplete, isCompleted, intenti
                 <p className="text-sm text-gray-600">Great start! We'll check in this evening.</p>
               </div>
             </div>
+
+            {/* New Badges Section */}
+            {newBadges && newBadges.length > 0 && (
+              <div className="bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg p-4 border border-purple-200">
+                <div className="flex items-center gap-3 mb-3">
+                  <span className="text-2xl">🏆</span>
+                  <h4 className="font-semibold text-gray-900">
+                    {newBadges.length === 1 ? 'New Badge Earned!' : `${newBadges.length} New Badges Earned!`}
+                  </h4>
+                </div>
+                <div className="space-y-2">
+                  {newBadges.map((badge, index) => (
+                    <div key={index} className="flex items-center gap-3 bg-white/70 rounded-lg p-3">
+                      <div className="w-8 h-8 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center">
+                        <span className="text-white font-bold text-sm">🏅</span>
+                      </div>
+                      <div>
+                        <p className="font-semibold text-gray-900">{badge.name}</p>
+                        <p className="text-sm text-gray-600">{badge.description}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
 
             <div className="text-center mb-6">
               <p className="text-gray-600 text-sm mb-2">
