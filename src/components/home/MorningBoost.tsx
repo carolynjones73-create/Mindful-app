@@ -7,6 +7,7 @@ interface MorningBoostProps {
   isCompleted: boolean;
   intention?: string;
   committedAction?: string;
+  hasCommittedAction?: boolean;
   newBadges?: any[];
 }
 
