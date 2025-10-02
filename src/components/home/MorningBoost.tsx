@@ -36,19 +36,19 @@ export default function MorningBoost({ onIntentionComplete, isCompleted, intenti
   useEffect(() => {
     console.log('Checking celebration trigger:', { 
       isCompleted, 
-      committedAction: !!committedAction, 
+      committedAction, 
       hasTriggeredCelebration,
       showCelebration 
     });
     
-    if (isCompleted && committedAction && !hasTriggeredCelebration && !showCelebration) {
+    if (isCompleted && !hasTriggeredCelebration && !showCelebration) {
       console.log('Triggering celebration popup!');
       setHasTriggeredCelebration(true);
       setTimeout(() => {
         setShowCelebration(true);
       }, 500);
     }
-  }, [isCompleted, committedAction, hasTriggeredCelebration, showCelebration]);
+  }, [isCompleted, hasTriggeredCelebration, showCelebration]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -128,7 +128,8 @@ export default function MorningBoost({ onIntentionComplete, isCompleted, intenti
                 <p className="text-gray-900 italic font-serif text-sm">"{intention}"</p>
               </div>
 
-              <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
+              {committedAction && (
+                <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
                 <div className="flex items-center gap-3 mb-2">
                   <span className="text-lg">⚡</span>
                   <h4 className="font-semibold text-gray-900">Committed Action</h4>
@@ -136,14 +137,20 @@ export default function MorningBoost({ onIntentionComplete, isCompleted, intenti
                 </div>
                 <p className="text-gray-700 text-sm">{committedAction}</p>
               </div>
+              )}
 
               <div className="bg-gradient-to-r from-golden-cream/50 to-warm-blush/50 rounded-lg p-4 border border-golden-cream">
                 <div className="flex items-center gap-3 mb-2">
                   <span className="text-lg">⭐</span>
                   <h4 className="font-semibold text-gray-900">Stars Earned</h4>
-                  <span className="ml-auto text-lg font-bold text-soft-clay">3 ⭐</span>
+                  <span className="ml-auto text-lg font-bold text-soft-clay">2 ⭐</span>
                 </div>
-                <p className="text-sm text-gray-600">Great start! We'll check in this evening.</p>
+                <p className="text-sm text-gray-600">
+                  {committedAction 
+                    ? "Great start! We'll check in this evening." 
+                    : "Great start! Don't forget to pick an action below."
+                  }
+                </p>
               </div>
             </div>
 
@@ -174,10 +181,16 @@ export default function MorningBoost({ onIntentionComplete, isCompleted, intenti
 
             <div className="text-center mb-6">
               <p className="text-gray-600 text-sm mb-2">
-                Remember your intention throughout the day!
+                {committedAction 
+                  ? "Remember your intention throughout the day!"
+                  : "Don't forget to choose an action below!"
+                }
               </p>
               <p className="text-sm text-palm-green font-medium">
-                See you this evening for reflection 🌙
+                {committedAction 
+                  ? "See you this evening for reflection 🌙"
+                  : "Pick your action, then we'll see you tonight! 🌙"
+                }
               </p>
             </div>
 
