@@ -7,11 +7,11 @@ interface MorningBoostProps {
   isCompleted: boolean;
   intention?: string;
   committedAction?: string;
-  hasCommittedAction?: boolean;
+  hasCommittedAction: boolean;
   newBadges?: any[];
 }
 
-export default function MorningBoost({ onIntentionComplete, isCompleted, intention, committedAction, newBadges }: MorningBoostProps) {
+export default function MorningBoost({ onIntentionComplete, isCompleted, intention, committedAction, hasCommittedAction, newBadges }: MorningBoostProps) {
   const [quote, setQuote] = useState<Quote | null>(null);
   const [tip, setTip] = useState<string>('');
   const [currentIntention, setCurrentIntention] = useState('');
