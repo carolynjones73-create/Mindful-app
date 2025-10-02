@@ -570,6 +570,8 @@ export default function Dashboard() {
                        ? quickActions.find(qa => qa.id === dailyEntry.quick_action_id)?.action_text
                        : undefined
                    }
+                    hasCommittedAction={!!dailyEntry?.quick_action_id}
+                    newBadges={newBadges}
                    actionCompleted={actionCompleted}
                    onActionCompletionUpdate={handleActionCompletionUpdate}
                   />
