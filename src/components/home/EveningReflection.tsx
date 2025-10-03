@@ -13,19 +13,23 @@ interface EveningReflectionProps {
   committedAction?: string;
   actionCompleted?: boolean;
   onActionCompletionUpdate?: (completed: boolean) => void;
+  newBadges?: any[];
+  hasCommittedAction?: boolean;
 }
 
-export default function EveningReflection({ 
-  prompt, 
-  onComplete, 
-  isCompleted, 
-  morningIntention, 
+export default function EveningReflection({
+  prompt,
+  onComplete,
+  isCompleted,
+  morningIntention,
   userGoals,
   completedReflection,
   completedRating,
   committedAction,
   actionCompleted,
-  onActionCompletionUpdate
+  onActionCompletionUpdate,
+  newBadges,
+  hasCommittedAction
 }: EveningReflectionProps) {
   const [reflection, setReflection] = useState('');
   const [rating, setRating] = useState(0);
