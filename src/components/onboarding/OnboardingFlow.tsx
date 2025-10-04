@@ -35,9 +35,14 @@ export default function OnboardingFlow({ onComplete }: OnboardingFlowProps) {
 
   const handleComplete = async () => {
     if (!user) return;
-    
+
     setLoading(true);
     try {
+      // Set trial period: 30 days from now
+      const trialStartDate = new Date();
+      const trialEndDate = new Date();
+      trialEndDate.setDate(trialEndDate.getDate() + 30);
+
       const { error } = await supabase
         .from('profiles')
         .upsert({
@@ -45,6 +50,9 @@ export default function OnboardingFlow({ onComplete }: OnboardingFlowProps) {
           email: user.email!,
           full_name: fullName,
           goals: goals,
+          trial_started_at: trialStartDate.toISOString(),
+          trial_ends_at: trialEndDate.toISOString(),
+          trial_notified: false,
           updated_at: new Date().toISOString()
         });
 

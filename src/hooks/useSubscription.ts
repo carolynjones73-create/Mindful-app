@@ -39,15 +39,47 @@ export function useSubscription() {
   const isPremium = (): boolean => {
     if (!profile) return false;
 
+    const now = new Date();
+
+    // Check if user is in trial period
+    if (profile.trial_ends_at) {
+      const trialEnds = new Date(profile.trial_ends_at);
+      if (now < trialEnds) {
+        return true;
+      }
+    }
+
+    // Check if user has active premium subscription
     if (profile.subscription_tier !== 'premium') return false;
 
     if (profile.subscription_ends_at) {
       const endsAt = new Date(profile.subscription_ends_at);
-      const now = new Date();
       return now < endsAt;
     }
 
     return true;
+  };
+
+  const getTrialDaysRemaining = (): number | null => {
+    if (!profile?.trial_ends_at) return null;
+
+    const now = new Date();
+    const trialEnds = new Date(profile.trial_ends_at);
+
+    if (now >= trialEnds) return null;
+
+    const diffTime = trialEnds.getTime() - now.getTime();
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays;
+  };
+
+  const isOnTrial = (): boolean => {
+    if (!profile?.trial_ends_at) return false;
+
+    const now = new Date();
+    const trialEnds = new Date(profile.trial_ends_at);
+
+    return now < trialEnds;
   };
 
   const checkAccess = (feature: string): boolean => {
@@ -80,6 +112,8 @@ export function useSubscription() {
     profile,
     loading,
     isPremium: isPremium(),
+    isOnTrial: isOnTrial(),
+    trialDaysRemaining: getTrialDaysRemaining(),
     checkAccess,
     getMaxReminders,
     canExportData,

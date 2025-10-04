@@ -29,7 +29,7 @@ export default function Dashboard() {
   const { tip, quickActions, prompt, loading } = useDailyContent();
   const { badges, userBadges, loading: badgesLoading, checkAndAwardBadges, refetch: refetchBadges } = useBadges();
   const { shouldShowPrompt, dismissPrompt, handleTestimonialSubmitted } = useTestimonials();
-  const { isPremium } = useSubscription();
+  const { isPremium, isOnTrial, trialDaysRemaining } = useSubscription();
   const [dailyEntry, setDailyEntry] = useState<DailyEntry | null>(null);
   const [actionCompleted, setActionCompleted] = useState<boolean | undefined>(undefined);
   const [userStats, setUserStats] = useState<{
@@ -468,6 +468,17 @@ export default function Dashboard() {
               </div>
             </div>
             <p className="text-gray-600">Welcome back, {profile?.full_name || user?.email}</p>
+            {isOnTrial && trialDaysRemaining !== null && (
+              <div className="mt-2 inline-flex items-center gap-2 px-3 py-1 bg-amber-50 border border-amber-200 rounded-lg">
+                <span className="text-sm font-medium text-amber-800">
+                  {trialDaysRemaining === 0
+                    ? "Trial ends today!"
+                    : trialDaysRemaining === 1
+                    ? "1 day left in trial"
+                    : `${trialDaysRemaining} days left in trial`}
+                </span>
+              </div>
+            )}
           </div>
           <div className="flex items-center gap-2">
             <button
