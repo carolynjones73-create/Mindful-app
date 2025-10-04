@@ -35,10 +35,27 @@ Deno.serve(async (req: Request) => {
     const currentMinute = now.getMinutes();
     const currentTime = `${String(currentHour).padStart(2, '0')}:${String(currentMinute).padStart(2, '0')}:00`;
 
-    // Get all profiles with notification times matching current time
+    const sentNotifications = [];
+    const failedNotifications = [];
+    let usersToNotify: Array<{ id: string; message: string }> = [];
+
+    const { data: customPreferences, error: prefsError } = await supabase
+      .from('notification_preferences')
+      .select('user_id, time, message')
+      .eq('enabled', true)
+      .gte('time', `${String(currentHour).padStart(2, '0')}:${String(Math.floor(currentMinute / 5) * 5).padStart(2, '0')}`)
+      .lt('time', `${String(currentHour).padStart(2, '0')}:${String(Math.ceil((currentMinute + 1) / 5) * 5).padStart(2, '0')}`);
+
+    if (!prefsError && customPreferences && customPreferences.length > 0) {
+      usersToNotify.push(...customPreferences.map(pref => ({
+        id: pref.user_id,
+        message: pref.message
+      })));
+    }
+
     const { data: profiles, error: profileError } = await supabase
       .from('profiles')
-      .select('id, notification_morning, notification_evening')
+      .select('id, notification_morning, notification_evening, subscription_tier')
       .or(
         notificationType === 'morning'
           ? `notification_morning.gte.${currentHour}:${String(Math.floor(currentMinute / 15) * 15).padStart(2, '0')}:00,notification_morning.lt.${currentHour}:${String(Math.ceil((currentMinute + 1) / 15) * 15).padStart(2, '0')}:00`
@@ -49,36 +66,41 @@ Deno.serve(async (req: Request) => {
       throw profileError;
     }
 
-    const sentNotifications = [];
-    const failedNotifications = [];
+    if (profiles && profiles.length > 0) {
+      const defaultMessage = notificationType === 'morning'
+        ? 'Start your day with intention and inspiration! 🌅'
+        : 'Time to reflect on your progress today! 🌙';
 
-    // Send notifications to each user
-    for (const profile of profiles || []) {
+      for (const profile of profiles) {
+        const alreadyAdded = usersToNotify.find(u => u.id === profile.id);
+        if (!alreadyAdded) {
+          usersToNotify.push({
+            id: profile.id,
+            message: defaultMessage
+          });
+        }
+      }
+    }
+
+    for (const userNotif of usersToNotify) {
       // Get user's push subscriptions
       const { data: subscriptions, error: subError } = await supabase
         .from('push_subscriptions')
         .select('*')
-        .eq('user_id', profile.id);
+        .eq('user_id', userNotif.id);
 
       if (subError) {
-        console.error(`Error fetching subscriptions for user ${profile.id}:`, subError);
+        console.error(`Error fetching subscriptions for user ${userNotif.id}:`, subError);
         continue;
       }
 
       // Prepare notification payload
-      const payload: NotificationPayload = notificationType === 'morning'
-        ? {
-            title: 'The Mindful Money App',
-            body: 'Start your day with intention and inspiration! 🌅',
-            icon: '/favicon.ico',
-            tag: 'morning-reminder',
-          }
-        : {
-            title: 'The Mindful Money App',
-            body: 'Time to reflect on your progress today! 🌙',
-            icon: '/favicon.ico',
-            tag: 'evening-reminder',
-          };
+      const payload: NotificationPayload = {
+        title: 'The Mindful Money App',
+        body: userNotif.message,
+        icon: '/favicon.ico',
+        tag: `reminder-${Date.now()}`,
+      };
 
       // Send notification to each subscription
       for (const sub of subscriptions || []) {
@@ -99,13 +121,13 @@ Deno.serve(async (req: Request) => {
           });
 
           sentNotifications.push({
-            userId: profile.id,
+            userId: userNotif.id,
             endpoint: sub.endpoint,
           });
         } catch (error) {
           console.error(`Failed to send notification to ${sub.endpoint}:`, error);
           failedNotifications.push({
-            userId: profile.id,
+            userId: userNotif.id,
             endpoint: sub.endpoint,
             error: error.message,
           });
@@ -118,7 +140,7 @@ Deno.serve(async (req: Request) => {
         success: true,
         type: notificationType,
         time: currentTime,
-        profilesFound: profiles?.length || 0,
+        usersFound: usersToNotify.length,
         sent: sentNotifications.length,
         failed: failedNotifications.length,
         sentNotifications,

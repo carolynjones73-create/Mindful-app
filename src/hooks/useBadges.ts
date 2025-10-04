@@ -85,6 +85,17 @@ export function useBadges() {
 
       if (userBadgesError) throw userBadgesError;
 
+      // Get user's profile to check subscription tier
+      const { data: profile, error: profileError } = await supabase
+        .from('profiles')
+        .select('subscription_tier')
+        .eq('id', user.id)
+        .maybeSingle();
+
+      if (profileError) throw profileError;
+
+      const isPremium = profile?.subscription_tier === 'premium';
+
       // Get user's stats
       const { data: entries, error: entriesError } = await supabase
         .from('daily_entries')
@@ -102,6 +113,9 @@ export function useBadges() {
       for (const badge of badges) {
         if (earnedBadgeIds.includes(badge.id)) continue;
 
+        // Skip premium badges if user is not premium
+        if (badge.tier === 'premium' && !isPremium) continue;
+
         console.log(`🔍 Checking badge: ${badge.name}`);
         console.log(`📊 Stats:`, stats);
         console.log(`🎯 Requirement: ${badge.requirement_type} >= ${badge.requirement_value}`);
@@ -117,6 +131,26 @@ export function useBadges() {
           // Should be awarded for completing first full day
           shouldEarn = stats.totalCompletions >= 1;
           console.log(`🚀 Getting Started check: ${stats.totalCompletions} >= 1 = ${shouldEarn}`);
+        } else if (badge.name === 'Premium Pioneer') {
+          // Awarded immediately upon subscribing to premium
+          shouldEarn = isPremium;
+          console.log(`👑 Premium Pioneer check: isPremium = ${shouldEarn}`);
+        } else if (badge.category === 'data') {
+          // Data export badges - check export count
+          const { data: exports } = await supabase
+            .from('data_exports')
+            .select('id')
+            .eq('user_id', user.id);
+          shouldEarn = (exports?.length || 0) >= badge.requirement_value;
+          console.log(`📊 Data export check: ${exports?.length} >= ${badge.requirement_value} = ${shouldEarn}`);
+        } else if (badge.category === 'customization') {
+          // Notification customization badges
+          const { data: prefs } = await supabase
+            .from('notification_preferences')
+            .select('id')
+            .eq('user_id', user.id);
+          shouldEarn = (prefs?.length || 0) >= badge.requirement_value;
+          console.log(`🔔 Customization check: ${prefs?.length} >= ${badge.requirement_value} = ${shouldEarn}`);
         } else {
           // Use general requirement logic for other badges
           switch (badge.requirement_type) {

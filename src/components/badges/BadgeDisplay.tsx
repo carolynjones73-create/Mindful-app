@@ -36,6 +36,10 @@ export default function BadgeDisplay({ badges, userBadges, showAll = false, user
       return 'bg-gray-100 border-gray-200 text-gray-400';
     }
 
+    if (badge.tier === 'premium') {
+      return 'bg-gradient-to-br from-amber-100 to-yellow-100 border-amber-300 text-amber-700';
+    }
+
     switch (badge.requirement_type) {
       case 'streak':
         return 'bg-orange-100 border-orange-200 text-orange-600';
@@ -221,7 +225,12 @@ export default function BadgeDisplay({ badges, userBadges, showAll = false, user
                 }`}>
                   <IconComponent className="w-6 h-6" />
                 </div>
-                <h4 className="font-bold text-sm mb-2">{badge.name}</h4>
+                <div className="flex items-center justify-center gap-1 mb-2">
+                  <h4 className="font-bold text-sm">{badge.name}</h4>
+                  {badge.tier === 'premium' && (
+                    <Crown size={14} className="text-amber-600 fill-current" />
+                  )}
+                </div>
                 <p className="text-xs opacity-80 leading-tight mb-3">{badge.description}</p>
                 
                 {isEarned && userBadge && (
