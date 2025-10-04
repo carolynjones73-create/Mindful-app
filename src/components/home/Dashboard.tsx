@@ -14,7 +14,14 @@ import BadgeNotification from '../badges/BadgeNotification';
 import Timeline from './Timeline';
 import TestimonialPrompt from '../testimonials/TestimonialPrompt';
 import { useTestimonials } from '../../hooks/useTestimonials';
-import { LogOut, Sun, Moon, Award, RotateCcw, Trash2 } from 'lucide-react';
+import HabitTracker from '../habits/HabitTracker';
+import AnalyticsDashboard from '../analytics/AnalyticsDashboard';
+import AskAIPrompt from '../ai/AskAIPrompt';
+import CoachChat from '../coach/CoachChat';
+import ReminderSettings from '../premium/ReminderSettings';
+import DataExport from '../premium/DataExport';
+import { useSubscription } from '../../hooks/useSubscription';
+import { LogOut, Sun, Moon, Award, RotateCcw, Trash2, Target, TrendingUp, Brain, MessageCircle, Bell, Download } from 'lucide-react';
 
 export default function Dashboard() {
   const { user, signOut } = useAuth();
@@ -22,6 +29,7 @@ export default function Dashboard() {
   const { tip, quickActions, prompt, loading } = useDailyContent();
   const { badges, userBadges, loading: badgesLoading, checkAndAwardBadges, refetch: refetchBadges } = useBadges();
   const { shouldShowPrompt, dismissPrompt, handleTestimonialSubmitted } = useTestimonials();
+  const { isPremium } = useSubscription();
   const [dailyEntry, setDailyEntry] = useState<DailyEntry | null>(null);
   const [actionCompleted, setActionCompleted] = useState<boolean | undefined>(undefined);
   const [userStats, setUserStats] = useState<{
@@ -32,6 +40,7 @@ export default function Dashboard() {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [newBadges, setNewBadges] = useState<any[]>([]);
   const [showTimeline, setShowTimeline] = useState(false);
+  const [activeTab, setActiveTab] = useState<'daily' | 'habits' | 'analytics' | 'ai' | 'coach' | 'settings' | 'export'>('daily');
 
   const today = new Date().toISOString().split('T')[0];
 
@@ -501,12 +510,105 @@ export default function Dashboard() {
       </header>
 
       <main className="max-w-7xl mx-auto px-4 py-8">
+        {/* Tab Navigation */}
+        <div className="bg-white rounded-lg shadow-sm border mb-6 p-2 flex gap-2 overflow-x-auto">
+          <button
+            onClick={() => setActiveTab('daily')}
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors whitespace-nowrap ${
+              activeTab === 'daily'
+                ? 'bg-emerald-500 text-white'
+                : 'hover:bg-slate-100 text-slate-700'
+            }`}
+          >
+            <Sun size={20} />
+            <span>Daily Flow</span>
+          </button>
+
+          {isPremium && (
+            <>
+              <button
+                onClick={() => setActiveTab('habits')}
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors whitespace-nowrap ${
+                  activeTab === 'habits'
+                    ? 'bg-emerald-500 text-white'
+                    : 'hover:bg-slate-100 text-slate-700'
+                }`}
+              >
+                <Target size={20} />
+                <span>Habits</span>
+              </button>
+
+              <button
+                onClick={() => setActiveTab('analytics')}
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors whitespace-nowrap ${
+                  activeTab === 'analytics'
+                    ? 'bg-emerald-500 text-white'
+                    : 'hover:bg-slate-100 text-slate-700'
+                }`}
+              >
+                <TrendingUp size={20} />
+                <span>Analytics</span>
+              </button>
+
+              <button
+                onClick={() => setActiveTab('ai')}
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors whitespace-nowrap ${
+                  activeTab === 'ai'
+                    ? 'bg-emerald-500 text-white'
+                    : 'hover:bg-slate-100 text-slate-700'
+                }`}
+              >
+                <Brain size={20} />
+                <span>Ask AI</span>
+              </button>
+
+              <button
+                onClick={() => setActiveTab('coach')}
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors whitespace-nowrap ${
+                  activeTab === 'coach'
+                    ? 'bg-emerald-500 text-white'
+                    : 'hover:bg-slate-100 text-slate-700'
+                }`}
+              >
+                <MessageCircle size={20} />
+                <span>Coach</span>
+              </button>
+
+              <button
+                onClick={() => setActiveTab('settings')}
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors whitespace-nowrap ${
+                  activeTab === 'settings'
+                    ? 'bg-emerald-500 text-white'
+                    : 'hover:bg-slate-100 text-slate-700'
+                }`}
+              >
+                <Bell size={20} />
+                <span>Reminders</span>
+              </button>
+
+              <button
+                onClick={() => setActiveTab('export')}
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors whitespace-nowrap ${
+                  activeTab === 'export'
+                    ? 'bg-emerald-500 text-white'
+                    : 'hover:bg-slate-100 text-slate-700'
+                }`}
+              >
+                <Download size={20} />
+                <span>Export</span>
+              </button>
+            </>
+          )}
+        </div>
+
         <div className="space-y-8">
-          {/* Notification Setup */}
-          <div className="bg-white rounded-lg shadow-sm border p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Notifications</h3>
-            <NotificationSetup />
-          </div>
+          {activeTab === 'daily' && (
+            <>
+              {/* Notification Setup */}
+              <div className="bg-white rounded-lg shadow-sm border p-6">
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">Notifications</h3>
+                <NotificationSetup />
+              </div>
 
           {/* Main Content */}
           <div className="bg-white rounded-lg shadow-sm border p-6">
@@ -604,21 +706,59 @@ export default function Dashboard() {
             </div>
           </div>
 
-          {/* Badges Section */}
-          <div className="bg-white rounded-lg shadow-sm border p-6">
-            <div className="flex items-center gap-4 mb-6">
-              <div className="w-12 h-12 bg-golden-cream rounded-lg flex items-center justify-center">
-                <Award className="w-6 h-6 text-soft-clay" />
+              {/* Badges Section */}
+              <div className="bg-white rounded-lg shadow-sm border p-6">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="w-12 h-12 bg-golden-cream rounded-lg flex items-center justify-center">
+                    <Award className="w-6 h-6 text-soft-clay" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-900">Your Badges</h3>
+                    <p className="text-gray-600">
+                      {userBadges.length} of {badges.length} earned • {userStats.totalStars} total stars • {userStats.currentStreak} day streak
+                    </p>
+                  </div>
+                </div>
+                <BadgeDisplay badges={badges} userBadges={userBadges} userStats={userStats} />
               </div>
-              <div>
-                <h3 className="text-lg font-semibold text-gray-900">Your Badges</h3>
-                <p className="text-gray-600">
-                  {userBadges.length} of {badges.length} earned • {userStats.totalStars} total stars • {userStats.currentStreak} day streak
-                </p>
-              </div>
+            </>
+          )}
+
+          {activeTab === 'habits' && (
+            <div className="bg-white rounded-lg shadow-sm border p-6">
+              <HabitTracker />
             </div>
-            <BadgeDisplay badges={badges} userBadges={userBadges} userStats={userStats} />
-          </div>
+          )}
+
+          {activeTab === 'analytics' && (
+            <div className="bg-white rounded-lg shadow-sm border p-6">
+              <AnalyticsDashboard />
+            </div>
+          )}
+
+          {activeTab === 'ai' && (
+            <div className="bg-white rounded-lg shadow-sm border p-6">
+              <AskAIPrompt />
+            </div>
+          )}
+
+          {activeTab === 'coach' && (
+            <div className="bg-white rounded-lg shadow-sm border p-6">
+              <CoachChat />
+            </div>
+          )}
+
+          {activeTab === 'settings' && (
+            <div className="bg-white rounded-lg shadow-sm border p-6">
+              <ReminderSettings />
+            </div>
+          )}
+
+          {activeTab === 'export' && (
+            <div className="bg-white rounded-lg shadow-sm border p-6">
+              <DataExport />
+            </div>
+          )}
         </div>
       </main>
     </div>
