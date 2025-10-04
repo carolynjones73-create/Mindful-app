@@ -60,3 +60,36 @@ export interface DataExport {
   date_range_end?: string;
   created_at: string;
 }
+
+export interface Goal {
+  id: string;
+  user_id: string;
+  title: string;
+  description?: string;
+  target_date?: string;
+  status: 'active' | 'completed' | 'paused';
+  created_at: string;
+  updated_at: string;
+}
+
+export interface Habit {
+  id: string;
+  user_id: string;
+  goal_id?: string;
+  name: string;
+  description?: string;
+  frequency: 'daily' | 'weekly';
+  target_count: number;
+  icon: string;
+  created_at: string;
+  goal?: Goal;
+}
+
+export interface HabitCompletion {
+  id: string;
+  habit_id: string;
+  user_id: string;
+  completed_date: string;
+  note?: string;
+  created_at: string;
+}

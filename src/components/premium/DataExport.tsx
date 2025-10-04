@@ -4,9 +4,10 @@ import { useDataExport } from '../../hooks/useDataExport';
 import { useSubscription } from '../../hooks/useSubscription';
 
 export default function DataExport() {
-  const { loading, error, exportToCSV } = useDataExport();
+  const { loading, error, exportToCSV, exportToPDF } = useDataExport();
   const { canExportData } = useSubscription();
   const [dateRange, setDateRange] = useState<'all' | '30' | '90'>('all');
+  const [exportFormat, setExportFormat] = useState<'csv' | 'pdf'>('csv');
   const [showSuccess, setShowSuccess] = useState(false);
 
   const handleExport = async () => {
@@ -28,7 +29,9 @@ export default function DataExport() {
       startDate = date.toISOString().split('T')[0];
     }
 
-    const success = await exportToCSV(startDate);
+    const success = exportFormat === 'csv'
+      ? await exportToCSV(startDate)
+      : await exportToPDF(startDate);
 
     if (success) {
       setShowSuccess(true);
@@ -63,13 +66,36 @@ export default function DataExport() {
       <div className="bg-white border border-slate-200 rounded-lg p-6 space-y-4">
         <div>
           <h4 className="font-medium text-slate-800 mb-3">Export Format</h4>
-          <div className="flex items-center gap-2 text-slate-700">
-            <FileText size={20} className="text-emerald-600" />
-            <span className="font-medium">CSV (Comma-Separated Values)</span>
+          <div className="space-y-2">
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input
+                type="radio"
+                name="exportFormat"
+                value="csv"
+                checked={exportFormat === 'csv'}
+                onChange={(e) => setExportFormat(e.target.value as 'csv')}
+                className="text-emerald-600 focus:ring-emerald-500"
+              />
+              <div>
+                <span className="font-medium text-slate-700">CSV (Spreadsheet)</span>
+                <p className="text-xs text-slate-500">Compatible with Excel, Google Sheets</p>
+              </div>
+            </label>
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input
+                type="radio"
+                name="exportFormat"
+                value="pdf"
+                checked={exportFormat === 'pdf'}
+                onChange={(e) => setExportFormat(e.target.value as 'pdf')}
+                className="text-emerald-600 focus:ring-emerald-500"
+              />
+              <div>
+                <span className="font-medium text-slate-700">PDF (Formatted Report)</span>
+                <p className="text-xs text-slate-500">Beautiful formatted document for printing or sharing</p>
+              </div>
+            </label>
           </div>
-          <p className="text-sm text-slate-600 mt-2">
-            Compatible with Excel, Google Sheets, and other spreadsheet applications.
-          </p>
         </div>
 
         <div>
@@ -146,7 +172,7 @@ export default function DataExport() {
           ) : (
             <>
               <Download size={20} />
-              Export to CSV
+              Export to {exportFormat.toUpperCase()}
             </>
           )}
         </button>

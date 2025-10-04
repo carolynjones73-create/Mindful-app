@@ -151,6 +151,61 @@ export function useBadges() {
             .eq('user_id', user.id);
           shouldEarn = (prefs?.length || 0) >= badge.requirement_value;
           console.log(`🔔 Customization check: ${prefs?.length} >= ${badge.requirement_value} = ${shouldEarn}`);
+        } else if (badge.category === 'habits') {
+          // Habit-related badges
+          if (badge.name === 'Multi-Tracker') {
+            const { data: habits } = await supabase
+              .from('habits')
+              .select('id')
+              .eq('user_id', user.id);
+            shouldEarn = (habits?.length || 0) >= badge.requirement_value;
+            console.log(`📊 Multi-Tracker check: ${habits?.length} >= ${badge.requirement_value} = ${shouldEarn}`);
+          } else if (badge.requirement_type === 'streak') {
+            // Check habit streaks
+            const { data: habits } = await supabase
+              .from('habits')
+              .select('id')
+              .eq('user_id', user.id);
+
+            if (habits && habits.length > 0) {
+              const { data: completions } = await supabase
+                .from('habit_completions')
+                .select('*')
+                .eq('user_id', user.id)
+                .order('completed_date', { ascending: false });
+
+              // Calculate max streak across all habits
+              let maxStreak = 0;
+              for (const habit of habits) {
+                const habitCompletions = (completions || [])
+                  .filter(c => c.habit_id === habit.id)
+                  .sort((a, b) => new Date(b.completed_date).getTime() - new Date(a.completed_date).getTime());
+
+                let streak = 0;
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+
+                for (let i = 0; i < habitCompletions.length; i++) {
+                  const completionDate = new Date(habitCompletions[i].completed_date);
+                  completionDate.setHours(0, 0, 0, 0);
+
+                  const expectedDate = new Date(today);
+                  expectedDate.setDate(expectedDate.getDate() - streak);
+
+                  if (completionDate.getTime() === expectedDate.getTime()) {
+                    streak++;
+                  } else {
+                    break;
+                  }
+                }
+
+                if (streak > maxStreak) maxStreak = streak;
+              }
+
+              shouldEarn = maxStreak >= badge.requirement_value;
+              console.log(`💪 Habit streak check: ${maxStreak} >= ${badge.requirement_value} = ${shouldEarn}`);
+            }
+          }
         } else {
           // Use general requirement logic for other badges
           switch (badge.requirement_type) {
