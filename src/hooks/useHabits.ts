@@ -48,11 +48,12 @@ export function useHabits() {
     try {
       const { data, error } = await supabase
         .from('habits')
-        .select('*, goal:goals(*)')
+        .select('*')
         .eq('user_id', user.id)
         .order('created_at', { ascending: false });
 
       if (error) throw error;
+      console.log('Fetched habits:', data);
       setHabits(data || []);
     } catch (error) {
       console.error('Error fetching habits:', error);
@@ -148,6 +149,7 @@ export function useHabits() {
     if (!user) return null;
 
     try {
+      console.log('Adding habit:', { name, goalId, description, frequency, targetCount, icon });
       const { data, error } = await supabase
         .from('habits')
         .insert({
@@ -162,7 +164,12 @@ export function useHabits() {
         .select()
         .single();
 
-      if (error) throw error;
+      if (error) {
+        console.error('Supabase error adding habit:', error);
+        throw error;
+      }
+
+      console.log('Habit added successfully:', data);
       await fetchHabits();
       return data;
     } catch (error) {

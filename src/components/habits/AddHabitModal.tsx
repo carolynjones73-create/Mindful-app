@@ -142,6 +142,11 @@ export default function AddHabitModal({ onClose }: AddHabitModalProps) {
                     </option>
                   ))}
                 </select>
+                {goals.length === 0 && (
+                  <p className="text-xs text-slate-500 mt-1">
+                    You haven't created any goals yet. Goals help organize your habits.
+                  </p>
+                )}
               </div>
 
               <div>
