@@ -151,6 +151,14 @@ export function useBadges() {
             .eq('user_id', user.id);
           shouldEarn = (prefs?.length || 0) >= badge.requirement_value;
           console.log(`🔔 Customization check: ${prefs?.length} >= ${badge.requirement_value} = ${shouldEarn}`);
+        } else if (badge.category === 'ai') {
+          // AI prompt usage badges
+          const { data: prompts } = await supabase
+            .from('ai_prompt_history')
+            .select('id')
+            .eq('user_id', user.id);
+          shouldEarn = (prompts?.length || 0) >= badge.requirement_value;
+          console.log(`🤖 AI usage check: ${prompts?.length} >= ${badge.requirement_value} = ${shouldEarn}`);
         } else if (badge.category === 'habits') {
           // Habit-related badges
           if (badge.name === 'Multi-Tracker') {

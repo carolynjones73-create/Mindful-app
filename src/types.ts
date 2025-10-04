@@ -93,3 +93,48 @@ export interface HabitCompletion {
   note?: string;
   created_at: string;
 }
+
+export interface CustomPrompt {
+  id: string;
+  user_id: string;
+  prompt_text: string;
+  context?: string;
+  goal_related: boolean;
+  created_at: string;
+}
+
+export interface AIPromptHistory {
+  id: string;
+  user_id: string;
+  question_asked: string;
+  ai_response: string;
+  created_at: string;
+}
+
+export interface Coach {
+  id: string;
+  name: string;
+  email: string;
+  avatar_url?: string;
+  bio?: string;
+  active: boolean;
+  created_at: string;
+}
+
+export interface CoachMessage {
+  id: string;
+  user_id: string;
+  coach_id: string;
+  message: string;
+  sender_type: 'user' | 'coach';
+  read: boolean;
+  created_at: string;
+}
+
+export interface CoachAssignment {
+  id: string;
+  user_id: string;
+  coach_id: string;
+  assigned_at: string;
+  coach?: Coach;
+}
