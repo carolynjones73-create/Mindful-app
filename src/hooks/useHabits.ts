@@ -172,7 +172,7 @@ export function useHabits() {
       }
 
       console.log('Habit added successfully:', data);
-      await fetchHabits();
+      setHabits(prev => [data, ...prev]);
       return data;
     } catch (error) {
       console.error('Error adding habit:', error);
@@ -188,7 +188,7 @@ export function useHabits() {
         .eq('id', id);
 
       if (error) throw error;
-      await fetchHabits();
+      setHabits(prev => prev.map(h => h.id === id ? { ...h, ...updates } : h));
       return true;
     } catch (error) {
       console.error('Error updating habit:', error);
@@ -209,8 +209,8 @@ export function useHabits() {
         throw error;
       }
 
-      console.log('Habit deleted successfully, refetching...');
-      await fetchHabits();
+      console.log('Habit deleted successfully, updating state...');
+      setHabits(prev => prev.filter(h => h.id !== id));
       return true;
     } catch (error) {
       console.error('Error deleting habit:', error);
@@ -224,17 +224,19 @@ export function useHabits() {
     const completedDate = date || new Date().toISOString().split('T')[0];
 
     try {
-      const { error } = await supabase
+      const { data, error } = await supabase
         .from('habit_completions')
         .insert({
           user_id: user.id,
           habit_id: habitId,
           completed_date: completedDate,
           note: note || null
-        });
+        })
+        .select()
+        .single();
 
       if (error) throw error;
-      await fetchCompletions();
+      setCompletions(prev => [data, ...prev]);
       return true;
     } catch (error) {
       console.error('Error completing habit:', error);
@@ -253,7 +255,9 @@ export function useHabits() {
         .eq('completed_date', completedDate);
 
       if (error) throw error;
-      await fetchCompletions();
+      setCompletions(prev => prev.filter(c =>
+        !(c.habit_id === habitId && c.completed_date === completedDate)
+      ));
       return true;
     } catch (error) {
       console.error('Error uncompleting habit:', error);
