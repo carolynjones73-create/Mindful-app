@@ -10,6 +10,8 @@ export function useHabits() {
   const [loading, setLoading] = useState(true);
   const { user } = useAuth();
 
+  console.log('useHabits render - habits count:', habits.length);
+
   useEffect(() => {
     if (user) {
       fetchAll();
@@ -196,12 +198,18 @@ export function useHabits() {
 
   const deleteHabit = async (id: string): Promise<boolean> => {
     try {
+      console.log('Deleting habit:', id);
       const { error } = await supabase
         .from('habits')
         .delete()
         .eq('id', id);
 
-      if (error) throw error;
+      if (error) {
+        console.error('Supabase error deleting habit:', error);
+        throw error;
+      }
+
+      console.log('Habit deleted successfully, refetching...');
       await fetchHabits();
       return true;
     } catch (error) {

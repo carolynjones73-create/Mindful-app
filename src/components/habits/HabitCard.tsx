@@ -17,7 +17,11 @@ export default function HabitCard({ habit, isCompleted, streak, onToggle }: Habi
 
   const handleDelete = async () => {
     if (confirm(`Are you sure you want to delete "${habit.name}"?`)) {
-      await deleteHabit(habit.id);
+      const success = await deleteHabit(habit.id);
+      console.log('Delete result:', success);
+      if (!success) {
+        alert('Failed to delete habit. Please try again.');
+      }
     }
   };
 
