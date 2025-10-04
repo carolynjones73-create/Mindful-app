@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { CheckCircle, Circle, Plus, Target, TrendingUp, Lock } from 'lucide-react';
-import { useHabits } from '../../hooks/useHabits';
+import { useHabits } from '../../contexts/HabitsContext';
 import { useSubscription } from '../../hooks/useSubscription';
 import HabitCard from './HabitCard';
 import AddHabitModal from './AddHabitModal';

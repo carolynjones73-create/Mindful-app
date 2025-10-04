@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { X, Target } from 'lucide-react';
-import { useHabits } from '../../hooks/useHabits';
+import { useHabits } from '../../contexts/HabitsContext';
 
 interface AddHabitModalProps {
   onClose: () => void;

@@ -1,16 +1,35 @@
-import { useState, useEffect } from 'react';
-import { useAuth } from '../contexts/AuthContext';
+import React, { createContext, useContext, useState, useEffect, useMemo } from 'react';
+import { useAuth } from './AuthContext';
 import { supabase } from '../lib/supabase';
 import { Habit, HabitCompletion, Goal } from '../types';
 
-export function useHabits() {
+interface HabitsContextType {
+  habits: Habit[];
+  goals: Goal[];
+  completions: HabitCompletion[];
+  loading: boolean;
+  addGoal: (title: string, description?: string, targetDate?: string) => Promise<Goal | null>;
+  updateGoal: (id: string, updates: Partial<Goal>) => Promise<boolean>;
+  deleteGoal: (id: string) => Promise<boolean>;
+  addHabit: (name: string, goalId?: string, description?: string, frequency?: 'daily' | 'weekly', targetCount?: number, icon?: string) => Promise<Habit | null>;
+  updateHabit: (id: string, updates: Partial<Habit>) => Promise<boolean>;
+  deleteHabit: (id: string) => Promise<boolean>;
+  completeHabit: (habitId: string, date?: string, note?: string) => Promise<boolean>;
+  uncompleteHabit: (habitId: string, date?: string) => Promise<boolean>;
+  isHabitCompleted: (habitId: string, date?: string) => boolean;
+  getHabitStreak: (habitId: string) => number;
+  getHabitCompletionRate: (habitId: string, days?: number) => number;
+  refetch: () => Promise<void>;
+}
+
+const HabitsContext = createContext<HabitsContextType | undefined>(undefined);
+
+export function HabitsProvider({ children }: { children: React.ReactNode }) {
   const [habits, setHabits] = useState<Habit[]>([]);
   const [goals, setGoals] = useState<Goal[]>([]);
   const [completions, setCompletions] = useState<HabitCompletion[]>([]);
   const [loading, setLoading] = useState(true);
   const { user } = useAuth();
-
-  console.log('useHabits render - habits count:', habits.length);
 
   useEffect(() => {
     if (user) {
@@ -55,7 +74,6 @@ export function useHabits() {
         .order('created_at', { ascending: false });
 
       if (error) throw error;
-      console.log('Fetched habits:', data);
       setHabits(data || []);
     } catch (error) {
       console.error('Error fetching habits:', error);
@@ -100,7 +118,7 @@ export function useHabits() {
         .single();
 
       if (error) throw error;
-      await fetchGoals();
+      setGoals(prev => [data, ...prev]);
       return data;
     } catch (error) {
       console.error('Error adding goal:', error);
@@ -116,7 +134,7 @@ export function useHabits() {
         .eq('id', id);
 
       if (error) throw error;
-      await fetchGoals();
+      setGoals(prev => prev.map(g => g.id === id ? { ...g, ...updates } : g));
       return true;
     } catch (error) {
       console.error('Error updating goal:', error);
@@ -132,7 +150,7 @@ export function useHabits() {
         .eq('id', id);
 
       if (error) throw error;
-      await fetchGoals();
+      setGoals(prev => prev.filter(g => g.id !== id));
       return true;
     } catch (error) {
       console.error('Error deleting goal:', error);
@@ -151,7 +169,6 @@ export function useHabits() {
     if (!user) return null;
 
     try {
-      console.log('Adding habit:', { name, goalId, description, frequency, targetCount, icon });
       const { data, error } = await supabase
         .from('habits')
         .insert({
@@ -166,12 +183,7 @@ export function useHabits() {
         .select()
         .single();
 
-      if (error) {
-        console.error('Supabase error adding habit:', error);
-        throw error;
-      }
-
-      console.log('Habit added successfully:', data);
+      if (error) throw error;
       setHabits(prev => [data, ...prev]);
       return data;
     } catch (error) {
@@ -198,18 +210,12 @@ export function useHabits() {
 
   const deleteHabit = async (id: string): Promise<boolean> => {
     try {
-      console.log('Deleting habit:', id);
       const { error } = await supabase
         .from('habits')
         .delete()
         .eq('id', id);
 
-      if (error) {
-        console.error('Supabase error deleting habit:', error);
-        throw error;
-      }
-
-      console.log('Habit deleted successfully, updating state...');
+      if (error) throw error;
       setHabits(prev => prev.filter(h => h.id !== id));
       return true;
     } catch (error) {
@@ -313,7 +319,7 @@ export function useHabits() {
     return Math.round((relevantCompletions.length / days) * 100);
   };
 
-  return {
+  const value = useMemo(() => ({
     habits,
     goals,
     completions,
@@ -330,5 +336,15 @@ export function useHabits() {
     getHabitStreak,
     getHabitCompletionRate,
     refetch: fetchAll
-  };
+  }), [habits, goals, completions, loading]);
+
+  return <HabitsContext.Provider value={value}>{children}</HabitsContext.Provider>;
+}
+
+export function useHabits() {
+  const context = useContext(HabitsContext);
+  if (context === undefined) {
+    throw new Error('useHabits must be used within a HabitsProvider');
+  }
+  return context;
 }

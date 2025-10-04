@@ -1,7 +1,7 @@
 import { CheckCircle, Circle, Flame, CreditCard as Edit2, Trash2 } from 'lucide-react';
 import { Habit } from '../../types';
 import { useState } from 'react';
-import { useHabits } from '../../hooks/useHabits';
+import { useHabits } from '../../contexts/HabitsContext';
 
 interface HabitCardProps {
   habit: Habit;

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
+import { HabitsProvider } from './contexts/HabitsContext';
 import { useProfile } from './hooks/useProfile';
 import AuthForm from './components/auth/AuthForm';
 import PasswordReset from './components/auth/PasswordReset';
@@ -45,7 +46,9 @@ function AppContent() {
 function App() {
   return (
     <AuthProvider>
-      <AppContent />
+      <HabitsProvider>
+        <AppContent />
+      </HabitsProvider>
     </AuthProvider>
   );
 }
