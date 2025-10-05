@@ -20,7 +20,7 @@ export default function MonthlyCalendar() {
   const [currentDate, setCurrentDate] = useState(new Date());
 
   const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-  const dayHeaders = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const dayHeaders = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 
   const navigateMonth = (direction: 'prev' | 'next') => {
     const newDate = new Date(currentDate);
@@ -82,14 +82,14 @@ export default function MonthlyCalendar() {
       </div>
 
       <div className="mb-6">
-        <div className="grid grid-cols-7 gap-2 mb-2">
+        <div className="grid grid-cols-7 gap-1.5 mb-1">
           {dayHeaders.map((day) => (
-            <div key={day} className="text-center text-sm font-semibold text-slate-600 py-2">
+            <div key={day} className="text-center text-xs font-semibold text-slate-600 py-1">
               {day}
             </div>
           ))}
         </div>
-        <div className="grid grid-cols-7 gap-2">
+        <div className="grid grid-cols-7 gap-1.5">
           {monthData.flat().map((day, index) => {
             const completions = getDayCompletions(day.date);
             const today = new Date();
@@ -99,7 +99,7 @@ export default function MonthlyCalendar() {
             return (
               <div
                 key={`${day.date}-${index}`}
-                className={`aspect-square rounded-lg border-2 flex flex-col items-center justify-center p-2 transition-all ${
+                className={`aspect-square rounded-md border flex flex-col items-center justify-center p-1 transition-all ${
                   isToday
                     ? 'border-emerald-400 bg-emerald-50'
                     : day.isCurrentMonth
@@ -107,23 +107,23 @@ export default function MonthlyCalendar() {
                     : 'border-slate-100 bg-slate-50'
                 }`}
               >
-                <div className={`text-sm font-medium mb-1 ${
+                <div className={`text-[11px] font-medium mb-0.5 ${
                   day.isCurrentMonth ? 'text-slate-700' : 'text-slate-400'
                 }`}>
                   {day.day}
                 </div>
                 {completions.length > 0 && (
-                  <div className="flex flex-wrap gap-1 justify-center">
-                    {completions.slice(0, 6).map((completion, idx) => (
+                  <div className="flex flex-wrap gap-0.5 justify-center">
+                    {completions.slice(0, 4).map((completion, idx) => (
                       <div
                         key={idx}
-                        className={`w-2 h-2 rounded-full ${completion.color.bg}`}
+                        className={`w-1.5 h-1.5 rounded-full ${completion.color.bg}`}
                         title={completion.habit.name}
                       />
                     ))}
-                    {completions.length > 6 && (
-                      <div className="text-[8px] text-slate-500 font-medium">
-                        +{completions.length - 6}
+                    {completions.length > 4 && (
+                      <div className="text-[7px] text-slate-500 font-medium">
+                        +{completions.length - 4}
                       </div>
                     )}
                   </div>
