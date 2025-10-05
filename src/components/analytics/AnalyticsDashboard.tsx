@@ -69,6 +69,9 @@ export default function AnalyticsDashboard() {
           <p className="text-xs text-slate-500 mt-1">
             {analytics.totalCompletions} of {analytics.totalDays} days
           </p>
+          <p className="text-xs text-slate-400 italic mt-2">
+            How often you complete habits
+          </p>
         </div>
 
         <div className="bg-white border border-slate-200 rounded-lg p-4">
@@ -79,6 +82,9 @@ export default function AnalyticsDashboard() {
           <p className="text-3xl font-bold text-orange-600">{analytics.currentStreak}</p>
           <p className="text-xs text-slate-500 mt-1">
             Longest: {analytics.longestStreak} days
+          </p>
+          <p className="text-xs text-slate-400 italic mt-2">
+            Consecutive days with completions
           </p>
         </div>
 
@@ -91,6 +97,9 @@ export default function AnalyticsDashboard() {
           <p className="text-xs text-slate-500 mt-1">
             Avg rating: {analytics.averageRating}
           </p>
+          <p className="text-xs text-slate-400 italic mt-2">
+            Combined ratings from all habits
+          </p>
         </div>
 
         <div className="bg-white border border-slate-200 rounded-lg p-4">
@@ -102,11 +111,17 @@ export default function AnalyticsDashboard() {
           <p className="text-xs text-slate-500 mt-1">
             Best day: {analytics.bestDay}
           </p>
+          <p className="text-xs text-slate-400 italic mt-2">
+            Achievement milestones unlocked
+          </p>
         </div>
       </div>
 
       <div className="bg-white border border-slate-200 rounded-lg p-6">
-        <h4 className="font-semibold text-slate-800 mb-4">Weekly Completion Trend</h4>
+        <div className="mb-4">
+          <h4 className="font-semibold text-slate-800">Weekly Completion Trend</h4>
+          <p className="text-xs text-slate-500 mt-1">Shows your daily habit completions over the past 7 days</p>
+        </div>
         <ResponsiveContainer width="100%" height={200}>
           <LineChart data={analytics.weeklyTrend}>
             <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
@@ -132,7 +147,10 @@ export default function AnalyticsDashboard() {
 
       {analytics.monthlyTrend.length > 0 && (
         <div className="bg-white border border-slate-200 rounded-lg p-6">
-          <h4 className="font-semibold text-slate-800 mb-4">Monthly Completions</h4>
+          <div className="mb-4">
+            <h4 className="font-semibold text-slate-800">Monthly Completions</h4>
+            <p className="text-xs text-slate-500 mt-1">Total habit completions per month to track long-term progress</p>
+          </div>
           <ResponsiveContainer width="100%" height={200}>
             <BarChart data={analytics.monthlyTrend}>
               <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
@@ -152,7 +170,10 @@ export default function AnalyticsDashboard() {
       )}
 
       <div className="bg-white border border-slate-200 rounded-lg p-6">
-        <h4 className="font-semibold text-slate-800 mb-4">Rating Distribution</h4>
+        <div className="mb-4">
+          <h4 className="font-semibold text-slate-800">Rating Distribution</h4>
+          <p className="text-xs text-slate-500 mt-1">How you rated your habit completions (1-5 stars)</p>
+        </div>
         <ResponsiveContainer width="100%" height={200}>
           <BarChart data={analytics.ratingDistribution} layout="vertical">
             <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
