@@ -20,6 +20,7 @@ interface HabitsContextType {
   getHabitStreak: (habitId: string) => number;
   getHabitCompletionRate: (habitId: string, days?: number) => number;
   getLast7Days: (habitId: string) => { date: string; dayLabel: string; isCompleted: boolean; isToday: boolean }[];
+  getMonthData: (habitId: string, year: number, month: number) => { date: string; day: number; isCompleted: boolean; isToday: boolean; isCurrentMonth: boolean }[][];
   refetch: () => Promise<void>;
 }
 
@@ -344,6 +345,68 @@ export function HabitsProvider({ children }: { children: React.ReactNode }) {
     return days;
   };
 
+  const getMonthData = (habitId: string, year: number, month: number) => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const todayString = today.toISOString().split('T')[0];
+
+    const firstDay = new Date(year, month, 1);
+    const lastDay = new Date(year, month + 1, 0);
+    const daysInMonth = lastDay.getDate();
+    const startingDayOfWeek = firstDay.getDay();
+
+    const weeks: { date: string; day: number; isCompleted: boolean; isToday: boolean; isCurrentMonth: boolean }[][] = [];
+    let week: { date: string; day: number; isCompleted: boolean; isToday: boolean; isCurrentMonth: boolean }[] = [];
+
+    for (let i = 0; i < startingDayOfWeek; i++) {
+      const prevMonthDate = new Date(year, month, 0 - (startingDayOfWeek - i - 1));
+      const dateString = prevMonthDate.toISOString().split('T')[0];
+      week.push({
+        date: dateString,
+        day: prevMonthDate.getDate(),
+        isCompleted: isHabitCompleted(habitId, dateString),
+        isToday: dateString === todayString,
+        isCurrentMonth: false
+      });
+    }
+
+    for (let day = 1; day <= daysInMonth; day++) {
+      const date = new Date(year, month, day);
+      const dateString = date.toISOString().split('T')[0];
+
+      week.push({
+        date: dateString,
+        day: day,
+        isCompleted: isHabitCompleted(habitId, dateString),
+        isToday: dateString === todayString,
+        isCurrentMonth: true
+      });
+
+      if (week.length === 7) {
+        weeks.push(week);
+        week = [];
+      }
+    }
+
+    if (week.length > 0) {
+      const remainingDays = 7 - week.length;
+      for (let i = 1; i <= remainingDays; i++) {
+        const nextMonthDate = new Date(year, month + 1, i);
+        const dateString = nextMonthDate.toISOString().split('T')[0];
+        week.push({
+          date: dateString,
+          day: i,
+          isCompleted: isHabitCompleted(habitId, dateString),
+          isToday: dateString === todayString,
+          isCurrentMonth: false
+        });
+      }
+      weeks.push(week);
+    }
+
+    return weeks;
+  };
+
   const value = useMemo(() => ({
     habits,
     goals,
@@ -361,6 +424,7 @@ export function HabitsProvider({ children }: { children: React.ReactNode }) {
     getHabitStreak,
     getHabitCompletionRate,
     getLast7Days,
+    getMonthData,
     refetch: fetchAll
   }), [habits, goals, completions, loading]);
 

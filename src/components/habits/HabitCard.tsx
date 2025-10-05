@@ -1,4 +1,4 @@
-import { CheckCircle, Circle, Flame, CreditCard as Edit2, Trash2 } from 'lucide-react';
+import { CheckCircle, Circle, Flame, CreditCard as Edit2, Trash2, Calendar, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Habit } from '../../types';
 import { useState } from 'react';
 import { useHabits } from '../../contexts/HabitsContext';
@@ -11,10 +11,17 @@ interface HabitCardProps {
 }
 
 export default function HabitCard({ habit, isCompleted, streak, onToggle }: HabitCardProps) {
-  const { deleteHabit, getHabitCompletionRate, getLast7Days } = useHabits();
+  const { deleteHabit, getHabitCompletionRate, getLast7Days, getMonthData } = useHabits();
   const [showActions, setShowActions] = useState(false);
+  const [viewMode, setViewMode] = useState<'week' | 'month'>('week');
+  const [currentDate, setCurrentDate] = useState(new Date());
+
   const completionRate = getHabitCompletionRate(habit.id, 30);
   const last7Days = getLast7Days(habit.id);
+  const monthData = getMonthData(habit.id, currentDate.getFullYear(), currentDate.getMonth());
+
+  const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  const dayHeaders = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 
   const handleDelete = async () => {
     if (confirm(`Are you sure you want to delete "${habit.name}"?`)) {
@@ -24,6 +31,16 @@ export default function HabitCard({ habit, isCompleted, streak, onToggle }: Habi
         alert('Failed to delete habit. Please try again.');
       }
     }
+  };
+
+  const navigateMonth = (direction: 'prev' | 'next') => {
+    const newDate = new Date(currentDate);
+    if (direction === 'prev') {
+      newDate.setMonth(newDate.getMonth() - 1);
+    } else {
+      newDate.setMonth(newDate.getMonth() + 1);
+    }
+    setCurrentDate(newDate);
   };
 
   return (
@@ -86,29 +103,104 @@ export default function HabitCard({ habit, isCompleted, streak, onToggle }: Habi
           )}
 
           <div className="mb-4 pb-4 border-b border-slate-200">
-            <div className="flex items-center justify-between gap-2">
-              {last7Days.map((day, index) => (
-                <div key={day.date} className="flex flex-col items-center gap-1">
-                  <span className="text-xs font-medium text-slate-500">
-                    {day.dayLabel}
-                  </span>
-                  <div
-                    className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${
-                      day.isCompleted
-                        ? 'bg-emerald-500 ring-2 ring-emerald-200'
-                        : day.isToday
-                        ? 'bg-slate-100 ring-2 ring-slate-300'
-                        : 'bg-slate-100'
-                    }`}
-                    title={day.date}
+            <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => setViewMode('week')}
+                  className={`px-3 py-1 rounded text-xs font-medium transition-colors ${
+                    viewMode === 'week'
+                      ? 'bg-emerald-100 text-emerald-700'
+                      : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                  }`}
+                >
+                  Week
+                </button>
+                <button
+                  onClick={() => setViewMode('month')}
+                  className={`px-3 py-1 rounded text-xs font-medium transition-colors ${
+                    viewMode === 'month'
+                      ? 'bg-emerald-100 text-emerald-700'
+                      : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                  }`}
+                >
+                  Month
+                </button>
+              </div>
+              {viewMode === 'month' && (
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => navigateMonth('prev')}
+                    className="p-1 hover:bg-slate-100 rounded transition-colors"
                   >
-                    {day.isCompleted && (
-                      <div className="w-3 h-3 bg-white rounded-full" />
-                    )}
-                  </div>
+                    <ChevronLeft size={16} className="text-slate-600" />
+                  </button>
+                  <span className="text-xs font-medium text-slate-700 min-w-[100px] text-center">
+                    {monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}
+                  </span>
+                  <button
+                    onClick={() => navigateMonth('next')}
+                    className="p-1 hover:bg-slate-100 rounded transition-colors"
+                  >
+                    <ChevronRight size={16} className="text-slate-600" />
+                  </button>
                 </div>
-              ))}
+              )}
             </div>
+
+            {viewMode === 'week' ? (
+              <div className="flex items-center justify-between gap-2">
+                {last7Days.map((day) => (
+                  <div key={day.date} className="flex flex-col items-center gap-1">
+                    <span className="text-xs font-medium text-slate-500">
+                      {day.dayLabel}
+                    </span>
+                    <div
+                      className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${
+                        day.isCompleted
+                          ? 'bg-emerald-500 ring-2 ring-emerald-200'
+                          : day.isToday
+                          ? 'bg-slate-100 ring-2 ring-slate-300'
+                          : 'bg-slate-100'
+                      }`}
+                      title={day.date}
+                    >
+                      {day.isCompleted && (
+                        <div className="w-3 h-3 bg-white rounded-full" />
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div>
+                <div className="grid grid-cols-7 gap-1 mb-1">
+                  {dayHeaders.map((day) => (
+                    <div key={day} className="text-center text-xs font-medium text-slate-500 py-1">
+                      {day}
+                    </div>
+                  ))}
+                </div>
+                <div className="grid grid-cols-7 gap-1">
+                  {monthData.flat().map((day, index) => (
+                    <div
+                      key={`${day.date}-${index}`}
+                      className={`aspect-square rounded-full flex items-center justify-center text-xs transition-all ${
+                        day.isCompleted
+                          ? 'bg-emerald-500 text-white font-medium ring-2 ring-emerald-200'
+                          : day.isToday
+                          ? 'bg-slate-100 ring-2 ring-slate-300 font-medium'
+                          : day.isCurrentMonth
+                          ? 'bg-slate-100 text-slate-700'
+                          : 'bg-slate-50 text-slate-400'
+                      }`}
+                      title={day.date}
+                    >
+                      {day.day}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
 
           <div className="flex items-center gap-4 text-sm">
