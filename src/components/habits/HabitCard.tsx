@@ -11,9 +11,10 @@ interface HabitCardProps {
 }
 
 export default function HabitCard({ habit, isCompleted, streak, onToggle }: HabitCardProps) {
-  const { deleteHabit, getHabitCompletionRate } = useHabits();
+  const { deleteHabit, getHabitCompletionRate, getLast7Days } = useHabits();
   const [showActions, setShowActions] = useState(false);
   const completionRate = getHabitCompletionRate(habit.id, 30);
+  const last7Days = getLast7Days(habit.id);
 
   const handleDelete = async () => {
     if (confirm(`Are you sure you want to delete "${habit.name}"?`)) {
@@ -83,6 +84,32 @@ export default function HabitCard({ habit, isCompleted, streak, onToggle }: Habi
               <span>Goal: {habit.goal.title}</span>
             </div>
           )}
+
+          <div className="mb-4 pb-4 border-b border-slate-200">
+            <div className="flex items-center justify-between gap-2">
+              {last7Days.map((day, index) => (
+                <div key={day.date} className="flex flex-col items-center gap-1">
+                  <span className="text-xs font-medium text-slate-500">
+                    {day.dayLabel}
+                  </span>
+                  <div
+                    className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${
+                      day.isCompleted
+                        ? 'bg-emerald-500 ring-2 ring-emerald-200'
+                        : day.isToday
+                        ? 'bg-slate-100 ring-2 ring-slate-300'
+                        : 'bg-slate-100'
+                    }`}
+                    title={day.date}
+                  >
+                    {day.isCompleted && (
+                      <div className="w-3 h-3 bg-white rounded-full" />
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
 
           <div className="flex items-center gap-4 text-sm">
             {streak > 0 && (

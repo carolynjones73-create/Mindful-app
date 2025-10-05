@@ -19,6 +19,7 @@ interface HabitsContextType {
   isHabitCompleted: (habitId: string, date?: string) => boolean;
   getHabitStreak: (habitId: string) => number;
   getHabitCompletionRate: (habitId: string, days?: number) => number;
+  getLast7Days: (habitId: string) => { date: string; dayLabel: string; isCompleted: boolean; isToday: boolean }[];
   refetch: () => Promise<void>;
 }
 
@@ -319,6 +320,30 @@ export function HabitsProvider({ children }: { children: React.ReactNode }) {
     return Math.round((relevantCompletions.length / days) * 100);
   };
 
+  const getLast7Days = (habitId: string) => {
+    const days = [];
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const dayLabels = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+
+    for (let i = 6; i >= 0; i--) {
+      const date = new Date(today);
+      date.setDate(date.getDate() - i);
+      const dateString = date.toISOString().split('T')[0];
+      const dayOfWeek = date.getDay();
+
+      days.push({
+        date: dateString,
+        dayLabel: dayLabels[dayOfWeek],
+        isCompleted: isHabitCompleted(habitId, dateString),
+        isToday: i === 0
+      });
+    }
+
+    return days;
+  };
+
   const value = useMemo(() => ({
     habits,
     goals,
@@ -335,6 +360,7 @@ export function HabitsProvider({ children }: { children: React.ReactNode }) {
     isHabitCompleted,
     getHabitStreak,
     getHabitCompletionRate,
+    getLast7Days,
     refetch: fetchAll
   }), [habits, goals, completions, loading]);
 
