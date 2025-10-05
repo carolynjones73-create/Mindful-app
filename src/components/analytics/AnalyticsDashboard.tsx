@@ -70,7 +70,7 @@ export default function AnalyticsDashboard() {
             {analytics.totalCompletions} of {analytics.totalDays} days
           </p>
           <p className="text-xs text-slate-400 italic mt-2">
-            How often you complete habits
+            Morning & evening journal completion
           </p>
         </div>
 
@@ -84,7 +84,7 @@ export default function AnalyticsDashboard() {
             Longest: {analytics.longestStreak} days
           </p>
           <p className="text-xs text-slate-400 italic mt-2">
-            Consecutive days with completions
+            Consecutive days with journal entries
           </p>
         </div>
 
@@ -98,7 +98,7 @@ export default function AnalyticsDashboard() {
             Avg rating: {analytics.averageRating}
           </p>
           <p className="text-xs text-slate-400 italic mt-2">
-            Combined ratings from all habits
+            Combined ratings from journal entries
           </p>
         </div>
 
@@ -119,8 +119,8 @@ export default function AnalyticsDashboard() {
 
       <div className="bg-white border border-slate-200 rounded-lg p-6">
         <div className="mb-4">
-          <h4 className="font-semibold text-slate-800">Weekly Completion Trend</h4>
-          <p className="text-xs text-slate-500 mt-1">Shows your daily habit completions over the past 7 days</p>
+          <h4 className="font-semibold text-slate-800">Weekly Journal Completion Trend</h4>
+          <p className="text-xs text-slate-500 mt-1">Shows your daily journal completions over the past 7 days</p>
         </div>
         <ResponsiveContainer width="100%" height={200}>
           <LineChart data={analytics.weeklyTrend}>
@@ -148,8 +148,8 @@ export default function AnalyticsDashboard() {
       {analytics.monthlyTrend.length > 0 && (
         <div className="bg-white border border-slate-200 rounded-lg p-6">
           <div className="mb-4">
-            <h4 className="font-semibold text-slate-800">Monthly Completions</h4>
-            <p className="text-xs text-slate-500 mt-1">Total habit completions per month to track long-term progress</p>
+            <h4 className="font-semibold text-slate-800">Monthly Journal Completions</h4>
+            <p className="text-xs text-slate-500 mt-1">Total journal completions per month to track long-term progress</p>
           </div>
           <ResponsiveContainer width="100%" height={200}>
             <BarChart data={analytics.monthlyTrend}>
@@ -189,6 +189,84 @@ export default function AnalyticsDashboard() {
             <Bar dataKey="count" fill="#eab308" radius={[0, 8, 8, 0]} />
           </BarChart>
         </ResponsiveContainer>
+      </div>
+
+      <div className="bg-white border border-slate-200 rounded-lg p-6">
+        <div className="mb-4">
+          <h4 className="font-semibold text-slate-800">Habit Performance</h4>
+          <p className="text-xs text-slate-500 mt-1">Your most completed habits and their completion rates</p>
+        </div>
+        {analytics.habitStats.topHabits.length > 0 ? (
+          <div className="space-y-3">
+            {analytics.habitStats.topHabits.map((habit, index) => (
+              <div key={index} className="flex items-center justify-between">
+                <div className="flex-1">
+                  <p className="text-sm font-medium text-slate-700">{habit.name}</p>
+                  <div className="mt-1 w-full bg-slate-100 rounded-full h-2">
+                    <div
+                      className="bg-emerald-500 h-2 rounded-full transition-all"
+                      style={{ width: `${habit.rate}%` }}
+                    />
+                  </div>
+                </div>
+                <div className="ml-4 text-right">
+                  <p className="text-sm font-semibold text-slate-700">{habit.rate}%</p>
+                  <p className="text-xs text-slate-500">{habit.completions} times</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className="text-sm text-slate-500 text-center py-4">
+            Start tracking habits to see your performance metrics
+          </p>
+        )}
+      </div>
+
+      <div className="bg-white border border-slate-200 rounded-lg p-6">
+        <div className="mb-4">
+          <h4 className="font-semibold text-slate-800">Weekly Habit Completions</h4>
+          <p className="text-xs text-slate-500 mt-1">Total number of habits completed each day this week</p>
+        </div>
+        <ResponsiveContainer width="100%" height={200}>
+          <BarChart data={analytics.habitStats.habitWeeklyTrend}>
+            <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+            <XAxis dataKey="date" stroke="#64748b" fontSize={12} />
+            <YAxis stroke="#64748b" fontSize={12} />
+            <Tooltip
+              contentStyle={{
+                backgroundColor: '#fff',
+                border: '1px solid #e2e8f0',
+                borderRadius: '8px'
+              }}
+            />
+            <Bar dataKey="completions" fill="#10b981" radius={[8, 8, 0, 0]} />
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
+
+      <div className="grid grid-cols-2 gap-4">
+        <div className="bg-white border border-slate-200 rounded-lg p-4">
+          <div className="flex items-center gap-2 text-slate-600 mb-2">
+            <Target size={16} />
+            <span className="text-sm">Total Habits</span>
+          </div>
+          <p className="text-3xl font-bold text-slate-700">{analytics.habitStats.totalHabits}</p>
+          <p className="text-xs text-slate-400 italic mt-2">
+            Active habits you're tracking
+          </p>
+        </div>
+
+        <div className="bg-white border border-slate-200 rounded-lg p-4">
+          <div className="flex items-center gap-2 text-slate-600 mb-2">
+            <Flame size={16} />
+            <span className="text-sm">Habit Completion Rate</span>
+          </div>
+          <p className="text-3xl font-bold text-emerald-600">{analytics.habitStats.habitCompletionRate}%</p>
+          <p className="text-xs text-slate-400 italic mt-2">
+            Overall habit success rate
+          </p>
+        </div>
       </div>
 
       <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-4 flex items-start gap-3">

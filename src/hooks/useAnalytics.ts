@@ -15,6 +15,13 @@ interface AnalyticsData {
   ratingDistribution: Array<{ rating: number; count: number }>;
   bestDay: string;
   totalDays: number;
+  habitStats: {
+    totalHabits: number;
+    totalHabitCompletions: number;
+    habitCompletionRate: number;
+    topHabits: Array<{ name: string; completions: number; rate: number }>;
+    habitWeeklyTrend: Array<{ date: string; completions: number }>;
+  };
 }
 
 export function useAnalytics() {
@@ -47,7 +54,27 @@ export function useAnalytics() {
 
       if (badgesError) throw badgesError;
 
-      const analyticsData = calculateAnalytics(entries || [], badges?.length || 0);
+      const { data: habits, error: habitsError } = await supabase
+        .from('habits')
+        .select('id, name')
+        .eq('user_id', user.id);
+
+      if (habitsError) throw habitsError;
+
+      const { data: habitCompletions, error: completionsError } = await supabase
+        .from('habit_completions')
+        .select('habit_id, completed_date')
+        .eq('user_id', user.id)
+        .order('completed_date', { ascending: false });
+
+      if (completionsError) throw completionsError;
+
+      const analyticsData = calculateAnalytics(
+        entries || [],
+        badges?.length || 0,
+        habits || [],
+        habitCompletions || []
+      );
       setAnalytics(analyticsData);
     } catch (error) {
       console.error('Error fetching analytics:', error);
@@ -56,7 +83,12 @@ export function useAnalytics() {
     }
   };
 
-  const calculateAnalytics = (entries: any[], badgeCount: number): AnalyticsData => {
+  const calculateAnalytics = (
+    entries: any[],
+    badgeCount: number,
+    habits: any[],
+    habitCompletions: any[]
+  ): AnalyticsData => {
     const completedEntries = entries.filter(
       e => e.morning_completed && e.evening_completed
     );
@@ -140,6 +172,55 @@ export function useAnalytics() {
       }
     });
 
+    const totalHabits = habits.length;
+    const totalHabitCompletions = habitCompletions.length;
+
+    const totalPossibleHabitCompletions = totalHabits * totalDays;
+    const habitCompletionRate = totalPossibleHabitCompletions > 0
+      ? Math.round((totalHabitCompletions / totalPossibleHabitCompletions) * 100)
+      : 0;
+
+    const habitCompletionsByHabit: { [key: string]: { name: string; count: number } } = {};
+    habits.forEach(habit => {
+      habitCompletionsByHabit[habit.id] = { name: habit.name, count: 0 };
+    });
+
+    habitCompletions.forEach(completion => {
+      if (habitCompletionsByHabit[completion.habit_id]) {
+        habitCompletionsByHabit[completion.habit_id].count++;
+      }
+    });
+
+    const topHabits = Object.entries(habitCompletionsByHabit)
+      .map(([habitId, data]) => ({
+        name: data.name,
+        completions: data.count,
+        rate: totalDays > 0 ? Math.round((data.count / totalDays) * 100) : 0
+      }))
+      .sort((a, b) => b.completions - a.completions)
+      .slice(0, 5);
+
+    const last7DaysHabits: { [key: string]: number } = {};
+    const today = new Date();
+    for (let i = 6; i >= 0; i--) {
+      const date = new Date(today);
+      date.setDate(date.getDate() - i);
+      const dateStr = date.toISOString().split('T')[0];
+      last7DaysHabits[dateStr] = 0;
+    }
+
+    habitCompletions.forEach(completion => {
+      const dateStr = completion.completed_date;
+      if (last7DaysHabits.hasOwnProperty(dateStr)) {
+        last7DaysHabits[dateStr]++;
+      }
+    });
+
+    const habitWeeklyTrend = Object.entries(last7DaysHabits).map(([date, count]) => ({
+      date: new Date(date).toLocaleDateString('en-US', { weekday: 'short' }),
+      completions: count
+    }));
+
     return {
       totalCompletions,
       completionRate,
@@ -152,7 +233,14 @@ export function useAnalytics() {
       monthlyTrend,
       ratingDistribution,
       bestDay,
-      totalDays
+      totalDays,
+      habitStats: {
+        totalHabits,
+        totalHabitCompletions,
+        habitCompletionRate,
+        topHabits,
+        habitWeeklyTrend
+      }
     };
   };
 
