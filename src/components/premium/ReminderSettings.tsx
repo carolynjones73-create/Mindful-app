@@ -1,12 +1,46 @@
 import { useState, useEffect } from 'react';
-import { Bell, Plus, Trash2, Clock, Lock } from 'lucide-react';
+import { Bell, Plus, Trash2, Clock, Lock, Lightbulb, TrendingUp, Heart, DollarSign } from 'lucide-react';
 import { useNotificationPreferences } from '../../hooks/useNotificationPreferences';
 import { useSubscription } from '../../hooks/useSubscription';
+
+const REMINDER_SUGGESTIONS = [
+  {
+    icon: TrendingUp,
+    time: '09:00',
+    message: 'Morning money mindset: Review your financial goals',
+    description: 'Start your day with intention'
+  },
+  {
+    icon: DollarSign,
+    time: '12:00',
+    message: 'Midday check: Track today\'s spending',
+    description: 'Stay aware throughout the day'
+  },
+  {
+    icon: Heart,
+    time: '15:00',
+    message: 'Afternoon pause: Practice gratitude for what you have',
+    description: 'Shift from scarcity to abundance'
+  },
+  {
+    icon: Bell,
+    time: '18:00',
+    message: 'Evening prep: Plan tomorrow\'s financial priorities',
+    description: 'End the day with clarity'
+  },
+  {
+    icon: TrendingUp,
+    time: '20:00',
+    message: 'Nightly reflection: What money decision am I proud of today?',
+    description: 'Celebrate your progress'
+  }
+];
 
 export default function ReminderSettings() {
   const { preferences, loading, addPreference, deletePreference, togglePreference } = useNotificationPreferences();
   const { isPremium, getMaxReminders } = useSubscription();
   const [showAddForm, setShowAddForm] = useState(false);
+  const [showSuggestions, setShowSuggestions] = useState(false);
   const [newTime, setNewTime] = useState('09:00');
   const [newMessage, setNewMessage] = useState('');
   const maxReminders = getMaxReminders();
@@ -32,6 +66,13 @@ export default function ReminderSettings() {
     await togglePreference(id, !currentEnabled);
   };
 
+  const handleUseSuggestion = (suggestion: typeof REMINDER_SUGGESTIONS[0]) => {
+    setNewTime(suggestion.time);
+    setNewMessage(suggestion.message);
+    setShowSuggestions(false);
+    setShowAddForm(true);
+  };
+
   const canAddMore = preferences.length < maxReminders;
 
   if (loading) {
@@ -54,15 +95,32 @@ export default function ReminderSettings() {
             </p>
           </div>
         </div>
-        {canAddMore && (
-          <button
-            onClick={() => setShowAddForm(!showAddForm)}
-            className="flex items-center gap-2 px-4 py-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition-colors"
-          >
-            <Plus size={20} />
-            Add Reminder
-          </button>
-        )}
+        <div className="flex gap-2">
+          {canAddMore && (
+            <>
+              <button
+                onClick={() => {
+                  setShowSuggestions(!showSuggestions);
+                  setShowAddForm(false);
+                }}
+                className="flex items-center gap-2 px-4 py-2 bg-slate-100 text-slate-700 rounded-lg hover:bg-slate-200 transition-colors"
+              >
+                <Lightbulb size={20} />
+                Ideas
+              </button>
+              <button
+                onClick={() => {
+                  setShowAddForm(!showAddForm);
+                  setShowSuggestions(false);
+                }}
+                className="flex items-center gap-2 px-4 py-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition-colors"
+              >
+                <Plus size={20} />
+                Add Custom
+              </button>
+            </>
+          )}
+        </div>
       </div>
 
       {!isPremium && (
@@ -73,6 +131,44 @@ export default function ReminderSettings() {
             <p className="text-sm text-amber-800">
               Upgrade to Premium to add up to 5 custom reminders. Free users can use the 2 default morning and evening reminders.
             </p>
+          </div>
+        </div>
+      )}
+
+      {showSuggestions && canAddMore && (
+        <div className="bg-gradient-to-br from-blue-50 to-emerald-50 border border-blue-200 rounded-lg p-6">
+          <div className="flex items-center gap-3 mb-4">
+            <Lightbulb className="text-blue-600" size={24} />
+            <div>
+              <h4 className="font-semibold text-slate-800">Reminder Ideas</h4>
+              <p className="text-sm text-slate-600">Click any suggestion to customize and add it</p>
+            </div>
+          </div>
+          <div className="space-y-3">
+            {REMINDER_SUGGESTIONS.map((suggestion, index) => {
+              const Icon = suggestion.icon;
+              return (
+                <button
+                  key={index}
+                  onClick={() => handleUseSuggestion(suggestion)}
+                  className="w-full bg-white border border-slate-200 rounded-lg p-4 hover:border-emerald-300 hover:shadow-md transition-all text-left group"
+                >
+                  <div className="flex items-start gap-3">
+                    <div className="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-emerald-200 transition-colors">
+                      <Icon className="text-emerald-600" size={20} />
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-1">
+                        <Clock className="text-slate-400" size={14} />
+                        <span className="text-sm font-medium text-slate-700">{suggestion.time}</span>
+                      </div>
+                      <p className="text-sm font-medium text-slate-800 mb-1">{suggestion.message}</p>
+                      <p className="text-xs text-slate-600">{suggestion.description}</p>
+                    </div>
+                  </div>
+                </button>
+              );
+            })}
           </div>
         </div>
       )}
@@ -105,6 +201,14 @@ export default function ReminderSettings() {
                 className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
               />
               <p className="text-xs text-slate-500 mt-1">{newMessage.length}/100 characters</p>
+            </div>
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
+              <div className="flex gap-2">
+                <Lightbulb className="text-blue-600 flex-shrink-0" size={16} />
+                <p className="text-xs text-blue-800">
+                  <strong>Tip:</strong> The most effective reminders are specific, actionable, and tied to your daily routine.
+                </p>
+              </div>
             </div>
             <div className="flex gap-2">
               <button
