@@ -180,15 +180,15 @@ export default function HabitCard({ habit, isCompleted, streak, onToggle }: Habi
                     </div>
                   ))}
                 </div>
-                <div className="grid grid-cols-7 gap-1">
+                <div className="grid grid-cols-7 gap-1.5">
                   {monthData.flat().map((day, index) => (
                     <div
                       key={`${day.date}-${index}`}
-                      className={`aspect-square rounded-full flex items-center justify-center text-xs transition-all ${
+                      className={`w-7 h-7 rounded-full flex items-center justify-center text-[10px] transition-all ${
                         day.isCompleted
-                          ? 'bg-emerald-500 text-white font-medium ring-2 ring-emerald-200'
+                          ? 'bg-emerald-500 text-white font-medium ring-1 ring-emerald-200'
                           : day.isToday
-                          ? 'bg-slate-100 ring-2 ring-slate-300 font-medium'
+                          ? 'bg-slate-100 ring-1 ring-slate-300 font-medium'
                           : day.isCurrentMonth
                           ? 'bg-slate-100 text-slate-700'
                           : 'bg-slate-50 text-slate-400'
