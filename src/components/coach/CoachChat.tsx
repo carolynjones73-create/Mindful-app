@@ -22,6 +22,8 @@ export default function CoachChat() {
   useEffect(() => {
     if (user && isPremium) {
       fetchCoachAndMessages();
+    } else if (!isPremium) {
+      setLoading(false);
     }
   }, [user, isPremium]);
 
@@ -87,6 +89,14 @@ export default function CoachChat() {
     }
   };
 
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center py-8">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-500"></div>
+      </div>
+    );
+  }
+
   if (!isPremium) {
     return (
       <div className="space-y-6">
@@ -116,14 +126,6 @@ export default function CoachChat() {
             </div>
           </div>
         </div>
-      </div>
-    );
-  }
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center py-8">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-500"></div>
       </div>
     );
   }
