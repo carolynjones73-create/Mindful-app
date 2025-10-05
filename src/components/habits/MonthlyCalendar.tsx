@@ -99,7 +99,7 @@ export default function MonthlyCalendar() {
             return (
               <div
                 key={`${day.date}-${index}`}
-                className={`aspect-square rounded-md border flex flex-col items-center justify-center p-1 transition-all ${
+                className={`w-10 h-10 rounded-md border flex flex-col items-center justify-center gap-0.5 transition-all ${
                   isToday
                     ? 'border-emerald-400 bg-emerald-50'
                     : day.isCurrentMonth
@@ -107,17 +107,17 @@ export default function MonthlyCalendar() {
                     : 'border-slate-100 bg-slate-50'
                 }`}
               >
-                <div className={`text-[11px] font-medium mb-0.5 ${
+                <div className={`text-[10px] font-medium ${
                   day.isCurrentMonth ? 'text-slate-700' : 'text-slate-400'
                 }`}>
                   {day.day}
                 </div>
                 {completions.length > 0 && (
-                  <div className="flex flex-wrap gap-0.5 justify-center">
+                  <div className="flex flex-wrap gap-0.5 justify-center max-w-[30px]">
                     {completions.slice(0, 4).map((completion, idx) => (
                       <div
                         key={idx}
-                        className={`w-1.5 h-1.5 rounded-full ${completion.color.bg}`}
+                        className={`w-2 h-2 rounded-full ${completion.color.bg}`}
                         title={completion.habit.name}
                       />
                     ))}
