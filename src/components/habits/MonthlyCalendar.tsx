@@ -82,14 +82,14 @@ export default function MonthlyCalendar() {
       </div>
 
       <div className="mb-6">
-        <div className="grid grid-cols-7 gap-1 mb-1">
+        <div className="grid grid-cols-7 gap-0.5 mb-1">
           {dayHeaders.map((day) => (
             <div key={day} className="w-10 text-center text-xs font-semibold text-slate-600">
               {day}
             </div>
           ))}
         </div>
-        <div className="grid grid-cols-7 gap-1">
+        <div className="grid grid-cols-7 gap-0.5">
           {monthData.flat().map((day, index) => {
             const completions = getDayCompletions(day.date);
             const today = new Date();
