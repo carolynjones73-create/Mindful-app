@@ -4,6 +4,7 @@ import { useHabits } from '../../contexts/HabitsContext';
 import { useSubscription } from '../../hooks/useSubscription';
 import HabitCard from './HabitCard';
 import AddHabitModal from './AddHabitModal';
+import MonthlyCalendar from './MonthlyCalendar';
 
 export default function HabitTracker() {
   const { habits, loading, completeHabit, uncompleteHabit, isHabitCompleted, getHabitStreak } = useHabits();
@@ -101,17 +102,23 @@ export default function HabitTracker() {
           </button>
         </div>
       ) : (
-        <div className="space-y-4">
-          {habits.map((habit) => (
-            <HabitCard
-              key={habit.id}
-              habit={habit}
-              isCompleted={isHabitCompleted(habit.id)}
-              streak={getHabitStreak(habit.id)}
-              onToggle={() => toggleHabit(habit.id)}
-            />
-          ))}
-        </div>
+        <>
+          {habits.length > 1 && (
+            <MonthlyCalendar />
+          )}
+
+          <div className="space-y-4">
+            {habits.map((habit) => (
+              <HabitCard
+                key={habit.id}
+                habit={habit}
+                isCompleted={isHabitCompleted(habit.id)}
+                streak={getHabitStreak(habit.id)}
+                onToggle={() => toggleHabit(habit.id)}
+              />
+            ))}
+          </div>
+        </>
       )}
 
       {habits.length > 0 && (
