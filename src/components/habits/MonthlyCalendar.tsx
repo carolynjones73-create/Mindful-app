@@ -84,7 +84,7 @@ export default function MonthlyCalendar() {
       <div className="mb-6">
         <div className="grid grid-cols-7 gap-0.5 mb-1">
           {dayHeaders.map((day) => (
-            <div key={day} className="w-10 text-center text-xs font-semibold text-slate-600">
+            <div key={day} className="text-center text-xs font-semibold text-slate-600">
               {day}
             </div>
           ))}
@@ -99,7 +99,7 @@ export default function MonthlyCalendar() {
             return (
               <div
                 key={`${day.date}-${index}`}
-                className={`w-10 h-10 rounded-md border flex flex-col items-center justify-center gap-0.5 transition-all ${
+                className={`aspect-square rounded-md border flex flex-col items-center justify-center gap-0.5 transition-all ${
                   isToday
                     ? 'border-emerald-400 bg-emerald-50'
                     : day.isCurrentMonth
