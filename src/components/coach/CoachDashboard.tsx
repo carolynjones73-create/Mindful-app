@@ -33,22 +33,23 @@ export default function CoachDashboard() {
     if (!coach) return;
 
     try {
-      const { data: assignments } = await supabase
-        .from('coach_assignments')
+      const { data: allMessages } = await supabase
+        .from('coach_messages')
         .select('user_id')
-        .eq('coach_id', coach.id);
+        .or(`coach_id.eq.${coach.id},coach_id.is.null`)
+        .order('created_at', { ascending: false });
 
-      if (!assignments) {
+      if (!allMessages || allMessages.length === 0) {
         setLoading(false);
         return;
       }
 
-      const userIds = assignments.map(a => a.user_id);
+      const uniqueUserIds = [...new Set(allMessages.map(m => m.user_id))];
 
       const { data: profiles } = await supabase
         .from('profiles')
         .select('id, email, full_name')
-        .in('id', userIds);
+        .in('id', uniqueUserIds);
 
       const usersWithUnread = await Promise.all(
         (profiles || []).map(async (profile) => {
@@ -56,7 +57,7 @@ export default function CoachDashboard() {
             .from('coach_messages')
             .select('*', { count: 'exact', head: true })
             .eq('user_id', profile.id)
-            .eq('coach_id', coach.id)
+            .or(`coach_id.eq.${coach.id},coach_id.is.null`)
             .eq('sender_type', 'user')
             .eq('read', false);
 
@@ -71,6 +72,7 @@ export default function CoachDashboard() {
         })
       );
 
+      usersWithUnread.sort((a, b) => b.unread_count - a.unread_count);
       setAssignedUsers(usersWithUnread);
     } catch (error) {
       console.error('Error fetching assigned users:', error);
@@ -228,18 +230,18 @@ export default function CoachDashboard() {
 
       <main className="max-w-6xl mx-auto px-6 py-8">
         <div className="mb-6">
-          <h2 className="text-2xl font-bold text-slate-800 mb-2">Your Assigned Users</h2>
+          <h2 className="text-2xl font-bold text-slate-800 mb-2">User Messages</h2>
           <p className="text-slate-600">
-            Click on a user to view and respond to their messages
+            Click on a user to view and respond to their messages. New messages will auto-assign you as their coach.
           </p>
         </div>
 
         {assignedUsers.length === 0 ? (
           <div className="bg-white border border-slate-200 rounded-lg p-12 text-center">
             <Users className="mx-auto text-slate-300 mb-4" size={64} />
-            <h3 className="text-lg font-semibold text-slate-800 mb-2">No Assigned Users</h3>
+            <h3 className="text-lg font-semibold text-slate-800 mb-2">No Messages Yet</h3>
             <p className="text-slate-600">
-              You don't have any users assigned to you yet. Contact your administrator for assignments.
+              No users have sent messages yet. Messages will appear here when users reach out for coaching.
             </p>
           </div>
         ) : (

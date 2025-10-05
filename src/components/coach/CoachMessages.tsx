@@ -49,7 +49,7 @@ export default function CoachMessages({ userId, onBack }: CoachMessagesProps) {
         .from('coach_messages')
         .select('*')
         .eq('user_id', userId)
-        .eq('coach_id', coach.id)
+        .or(`coach_id.eq.${coach.id},coach_id.is.null`)
         .order('created_at', { ascending: true });
 
       setMessages(msgs || []);
@@ -63,7 +63,7 @@ export default function CoachMessages({ userId, onBack }: CoachMessagesProps) {
           .from('coach_messages')
           .update({ read: true })
           .eq('user_id', userId)
-          .eq('coach_id', coach.id)
+          .or(`coach_id.eq.${coach.id},coach_id.is.null`)
           .eq('sender_type', 'user')
           .eq('read', false);
       }
@@ -79,7 +79,7 @@ export default function CoachMessages({ userId, onBack }: CoachMessagesProps) {
 
     setSending(true);
     try {
-      const { error } = await supabase
+      const { error: msgError } = await supabase
         .from('coach_messages')
         .insert({
           user_id: userId,
@@ -88,7 +88,44 @@ export default function CoachMessages({ userId, onBack }: CoachMessagesProps) {
           sender_type: 'coach',
         });
 
-      if (error) throw error;
+      if (msgError) throw msgError;
+
+      const { data: existingMessages } = await supabase
+        .from('coach_messages')
+        .select('coach_id')
+        .eq('user_id', userId)
+        .not('coach_id', 'is', null)
+        .limit(1);
+
+      if (!existingMessages || existingMessages.length === 0) {
+        await supabase
+          .from('coach_messages')
+          .update({ coach_id: coach.id })
+          .eq('user_id', userId)
+          .is('coach_id', null);
+
+        const { data: assignment } = await supabase
+          .from('coach_assignments')
+          .select('id')
+          .eq('user_id', userId)
+          .maybeSingle();
+
+        if (assignment) {
+          await supabase
+            .from('coach_assignments')
+            .update({ coach_id: coach.id })
+            .eq('id', assignment.id);
+        } else {
+          await supabase
+            .from('coach_assignments')
+            .insert({
+              user_id: userId,
+              coach_id: coach.id,
+              message_count: 0,
+              message_limit: 10,
+            });
+        }
+      }
 
       setNewMessage('');
       await fetchMessages();

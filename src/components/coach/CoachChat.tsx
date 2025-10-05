@@ -16,6 +16,7 @@ export default function CoachChat() {
   const [sending, setSending] = useState(false);
   const [messageCount, setMessageCount] = useState(0);
   const [messageLimit, setMessageLimit] = useState(10);
+  const [assignmentId, setAssignmentId] = useState<string | null>(null);
 
   const isAtLimit = messageCount >= messageLimit;
 
@@ -37,19 +38,22 @@ export default function CoachChat() {
         .eq('user_id', user.id)
         .maybeSingle();
 
-      if (assignment?.coach) {
-        setCoach(assignment.coach);
+      if (assignment) {
+        setAssignmentId(assignment.id);
         setMessageCount(assignment.message_count || 0);
         setMessageLimit(assignment.message_limit || 10);
-
-        const { data: msgs } = await supabase
-          .from('coach_messages')
-          .select('*')
-          .eq('user_id', user.id)
-          .order('created_at', { ascending: true });
-
-        setMessages(msgs || []);
+        if (assignment.coach) {
+          setCoach(assignment.coach);
+        }
       }
+
+      const { data: msgs } = await supabase
+        .from('coach_messages')
+        .select('*')
+        .eq('user_id', user.id)
+        .order('created_at', { ascending: true });
+
+      setMessages(msgs || []);
     } catch (error) {
       console.error('Error fetching coach data:', error);
     } finally {
@@ -58,7 +62,7 @@ export default function CoachChat() {
   };
 
   const handleSend = async () => {
-    if (!newMessage.trim() || !user || !coach) return;
+    if (!newMessage.trim() || !user) return;
 
     setSending(true);
     try {
@@ -66,19 +70,36 @@ export default function CoachChat() {
         .from('coach_messages')
         .insert({
           user_id: user.id,
-          coach_id: coach.id,
+          coach_id: coach?.id || null,
           message: newMessage,
           sender_type: 'user',
         });
 
       if (error) throw error;
 
-      const { error: updateError } = await supabase
-        .from('coach_assignments')
-        .update({ message_count: messageCount + 1 })
-        .eq('user_id', user.id);
+      if (assignmentId) {
+        const { error: updateError } = await supabase
+          .from('coach_assignments')
+          .update({ message_count: messageCount + 1 })
+          .eq('id', assignmentId);
 
-      if (updateError) throw updateError;
+        if (updateError) throw updateError;
+      } else {
+        const { data: newAssignment, error: createError } = await supabase
+          .from('coach_assignments')
+          .insert({
+            user_id: user.id,
+            coach_id: null,
+            message_count: 1,
+            message_limit: 10,
+          })
+          .select()
+          .single();
+
+        if (createError) throw createError;
+        setAssignmentId(newAssignment.id);
+        setMessageCount(1);
+      }
 
       setNewMessage('');
       await fetchCoachAndMessages();
@@ -130,39 +151,34 @@ export default function CoachChat() {
     );
   }
 
-  if (!coach) {
-    return (
-      <div className="space-y-6">
-        <div className="flex items-center gap-3">
-          <MessageCircle className="text-emerald-600" size={24} />
-          <h3 className="text-lg font-semibold text-slate-800">Money Coach Chat</h3>
-        </div>
-        <div className="bg-slate-50 border border-slate-200 rounded-lg p-6 text-center">
-          <p className="text-slate-600">
-            You don't have a coach assigned yet. Contact support to get matched with a money coach.
-          </p>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="space-y-6">
-      <div className="bg-white border border-slate-200 rounded-lg p-4 flex items-center gap-4">
-        <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center">
-          <User className="text-emerald-600" size={24} />
-        </div>
-        <div>
-          <h4 className="font-semibold text-slate-800">{coach.name}</h4>
-          <p className="text-sm text-slate-600">{coach.bio}</p>
-        </div>
-      </div>
+      {coach ? (
+        <>
+          <div className="bg-white border border-slate-200 rounded-lg p-4 flex items-center gap-4">
+            <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center">
+              <User className="text-emerald-600" size={24} />
+            </div>
+            <div>
+              <h4 className="font-semibold text-slate-800">{coach.name}</h4>
+              <p className="text-sm text-slate-600">{coach.bio}</p>
+            </div>
+          </div>
 
-      <SessionBookingPrompt
-        coach={coach}
-        messageCount={messageCount}
-        messageLimit={messageLimit}
-      />
+          <SessionBookingPrompt
+            coach={coach}
+            messageCount={messageCount}
+            messageLimit={messageLimit}
+          />
+        </>
+      ) : (
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+          <p className="text-sm text-blue-800">
+            <strong>Send your first message!</strong> A coach will respond and be assigned to you within 24-48 hours.
+          </p>
+        </div>
+      )}
 
       <div className="bg-white border border-slate-200 rounded-lg p-6 h-96 flex flex-col">
         <div className="flex-1 overflow-y-auto space-y-4 mb-4">
