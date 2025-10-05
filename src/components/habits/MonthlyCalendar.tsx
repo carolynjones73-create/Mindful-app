@@ -107,7 +107,7 @@ export default function MonthlyCalendar() {
                     : 'border-slate-100 bg-slate-50'
                 }`}
               >
-                <div className={`text-[10px] font-medium ${
+                <div className={`text-sm font-semibold ${
                   day.isCurrentMonth ? 'text-slate-700' : 'text-slate-400'
                 }`}>
                   {day.day}
