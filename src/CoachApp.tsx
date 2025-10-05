@@ -1,9 +1,12 @@
+import { useState } from 'react';
 import { CoachAuthProvider, useCoachAuth } from './contexts/CoachAuthContext';
 import CoachLogin from './components/coach/CoachLogin';
+import CoachRegistration from './components/coach/CoachRegistration';
 import CoachDashboard from './components/coach/CoachDashboard';
 
 function CoachAppContent() {
   const { user, isCoach, loading } = useCoachAuth();
+  const [showRegistration, setShowRegistration] = useState(false);
 
   if (loading) {
     return (
@@ -14,7 +17,10 @@ function CoachAppContent() {
   }
 
   if (!user || !isCoach) {
-    return <CoachLogin />;
+    if (showRegistration) {
+      return <CoachRegistration onBackToLogin={() => setShowRegistration(false)} />;
+    }
+    return <CoachLogin onShowRegistration={() => setShowRegistration(true)} />;
   }
 
   return <CoachDashboard />;

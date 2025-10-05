@@ -2,7 +2,11 @@ import { useState } from 'react';
 import { Lock, User, LogIn, Loader } from 'lucide-react';
 import { useCoachAuth } from '../../contexts/CoachAuthContext';
 
-export default function CoachLogin() {
+interface CoachLoginProps {
+  onShowRegistration: () => void;
+}
+
+export default function CoachLogin({ onShowRegistration }: CoachLoginProps) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -96,9 +100,15 @@ export default function CoachLogin() {
         </form>
 
         <div className="mt-6 pt-6 border-t border-slate-200 text-center">
-          <p className="text-sm text-slate-600">
-            Contact admin if you need help accessing your account
+          <p className="text-sm text-slate-600 mb-3">
+            Don't have an account?
           </p>
+          <button
+            onClick={onShowRegistration}
+            className="text-emerald-600 hover:text-emerald-700 font-semibold"
+          >
+            Register as a Coach
+          </button>
         </div>
       </div>
     </div>
