@@ -4,6 +4,7 @@ import { useSubscription } from '../../hooks/useSubscription';
 import { useAuth } from '../../contexts/AuthContext';
 import { supabase } from '../../lib/supabase';
 import { CoachMessage, Coach } from '../../types';
+import SessionBookingPrompt from './SessionBookingPrompt';
 
 export default function CoachChat() {
   const { isPremium } = useSubscription();
@@ -13,6 +14,10 @@ export default function CoachChat() {
   const [newMessage, setNewMessage] = useState('');
   const [loading, setLoading] = useState(true);
   const [sending, setSending] = useState(false);
+  const [messageCount, setMessageCount] = useState(0);
+  const [messageLimit, setMessageLimit] = useState(10);
+
+  const isAtLimit = messageCount >= messageLimit;
 
   useEffect(() => {
     if (user && isPremium) {
@@ -32,6 +37,8 @@ export default function CoachChat() {
 
       if (assignment?.coach) {
         setCoach(assignment.coach);
+        setMessageCount(assignment.message_count || 0);
+        setMessageLimit(assignment.message_limit || 10);
 
         const { data: msgs } = await supabase
           .from('coach_messages')
@@ -63,6 +70,13 @@ export default function CoachChat() {
         });
 
       if (error) throw error;
+
+      const { error: updateError } = await supabase
+        .from('coach_assignments')
+        .update({ message_count: messageCount + 1 })
+        .eq('user_id', user.id);
+
+      if (updateError) throw updateError;
 
       setNewMessage('');
       await fetchCoachAndMessages();
@@ -142,6 +156,12 @@ export default function CoachChat() {
         </div>
       </div>
 
+      <SessionBookingPrompt
+        coach={coach}
+        messageCount={messageCount}
+        messageLimit={messageLimit}
+      />
+
       <div className="bg-white border border-slate-200 rounded-lg p-6 h-96 flex flex-col">
         <div className="flex-1 overflow-y-auto space-y-4 mb-4">
           {messages.length === 0 ? (
@@ -177,14 +197,14 @@ export default function CoachChat() {
             type="text"
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
-            onKeyPress={(e) => e.key === 'Enter' && handleSend()}
-            placeholder="Type your message..."
+            onKeyPress={(e) => e.key === 'Enter' && !isAtLimit && handleSend()}
+            placeholder={isAtLimit ? "Message limit reached. Book a session to continue." : "Type your message..."}
             className="flex-1 px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
-            disabled={sending}
+            disabled={sending || isAtLimit}
           />
           <button
             onClick={handleSend}
-            disabled={!newMessage.trim() || sending}
+            disabled={!newMessage.trim() || sending || isAtLimit}
             className="px-4 py-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
             <Send size={20} />
